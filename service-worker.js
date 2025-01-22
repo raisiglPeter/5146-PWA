@@ -16,8 +16,20 @@ const FILES_TO_CACHE = [
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
+      console.log("Opening cache and adding files:", FILES_TO_CACHE);
       return cache.addAll(FILES_TO_CACHE).catch((error) => {
         console.error("Failed to cache files:", error);
+        // Log each file's fetch status
+        FILES_TO_CACHE.forEach(async (file) => {
+          try {
+            const response = await fetch(file);
+            if (!response.ok) {
+              console.error("File not found or cannot be fetched:", file);
+            }
+          } catch (fetchError) {
+            console.error("Fetch error for file:", file, fetchError);
+          }
+        });
       });
     })
   );
