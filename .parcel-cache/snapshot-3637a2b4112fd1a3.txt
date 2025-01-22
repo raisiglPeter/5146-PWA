@@ -183,7 +183,7 @@
 122C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\node_modules\websocket-extensions\lib\pipeline\ring_buffer.js133820316667926473 0
 109C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\node_modules\eslint\lib\eslint\eslint-helpers.js133820353622184827 0
 106C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\node_modules\firebase\compat\storage\dist\esm133820316702827408 1
-65C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\docs133820433368073525 1
+65C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\docs133820435302015524 1
 98C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\node_modules\@parcel\reporter-cli\src133820316871989043 1
 133C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\node_modules\@opentelemetry\api\build\src\baggage\internal\symbol.js.map133820316769186302 0
 115C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\node_modules\firebase-admin\lib\auth\project-config.js133820316765554038 0
@@ -285,7 +285,7 @@
 126C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\node_modules\firebase\compat\dist\esm\compat\functions\index.d.ts133820316694680116 0
 119C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\node_modules\@parcel\reporter-tracer\lib\TracerReporter.js133820316870745776 0
 123C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\node_modules\firebase\database\dist\compat\database\index.d.ts133820316704281210 0
-73C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\package.json133820433188265551 0
+73C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\package.json133820434454528832 0
 100C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\node_modules\lodash.isboolean\README.md133820316760238708 0
 135C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\node_modules\@firebase\installations\dist\src\interfaces\public-types.d.ts133820316673567269 0
 79C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\node_modules\p-try133820316796384882 1
@@ -23785,7 +23785,7 @@
 87C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\docs\index.9a0eea39.js.map133820431867382173 0
 87C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\docs\index.c90deae7.js.map133820373729309436 0
 87C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\docs\index.e499a198.js.map133820402126465304 0
-76C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\docs\index.html133820433368057270 0
-86C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\docs\manifest.webmanifest133820433368057270 0
+76C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\docs\index.html133820435302004936 0
+86C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\docs\manifest.webmanifest133820435302004936 0
 92C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\docs\service-worker.3d3e7985.js133820431076178459 0
 96C:\Users\SteamIntel\Documents\School\5146-Web-Trends\001 PWA\docs\service-worker.aeae032d.js.map133820398943499555 0
