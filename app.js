@@ -85,7 +85,7 @@ const sw = new URL("service-worker.js", import.meta.url);
 if ("serviceWorker" in navigator) {
   const s = navigator.serviceWorker;
   s.register(sw.href, {
-    scope: "/5146-PWA/",
+    scope: "/",
   })
     .then((_) =>
       console.log(
