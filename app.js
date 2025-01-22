@@ -26,6 +26,8 @@ const firebaseConfig = {
 
 // initialize firebase
 const app = initializeApp(firebaseConfig);
+console.log(app);
+
 const db = getFirestore(app);
 
 // sanitize input
