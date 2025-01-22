@@ -1,0 +1,2 @@
+const e=new URL(self.location),n=e.origin+e.pathname.replace("/service-worker.js",""),s=[`${n}/`,`${n}/index.html`,`${n}/style.css`,`${n}/app.js`,`${n}/manifest.json`,`${n}/icons/icon-128.png`,`${n}/icons/icon-512.png`];self.addEventListener("install",e=>{e.waitUntil(caches.open("to-do-pwa-cache-v1").then(e=>e.addAll(s).catch(e=>{console.error("Failed to cache files:",e)})))}),self.addEventListener("fetch",e=>{e.respondWith(caches.match(e.request).then(n=>n||fetch(e.request)))});
+//# sourceMappingURL=service-worker.a3e775e3.js.map
