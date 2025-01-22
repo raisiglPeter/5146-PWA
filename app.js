@@ -49,10 +49,15 @@ addTaskBtn.addEventListener("click", async () => {
 
 // add task to firestore
 async function addTaskToFirestore(taskText) {
-  await addDoc(collection(db, "todos"), {
-    text: taskText,
-    completed: false,
-  });
+  try {
+    await addDoc(collection(db, "todos"), {
+      text: taskText,
+      completed: false,
+    });
+    console.log("Task added to Firestore:", taskText);
+  } catch (error) {
+    console.error("Error adding task to Firestore:", error);
+  }
 }
 
 // get tasks from firestore
