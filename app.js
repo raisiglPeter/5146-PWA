@@ -2,8 +2,6 @@ const taskInput = document.getElementById("taskInput");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
 
-console.log("this is a test");
-
 // import firebase, firestore
 import { initializeApp } from "firebase/app";
 import {
@@ -28,7 +26,6 @@ const firebaseConfig = {
 
 // initialize firebase
 const app = initializeApp(firebaseConfig);
-console.log(app);
 
 const db = getFirestore(app);
 
