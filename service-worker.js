@@ -1,10 +1,7 @@
 const CACHE_NAME = "to-do-pwa-cache-v1";
-const selfUrl = new URL(self.location);
-const BASE_URL =
-  selfUrl.origin + selfUrl.pathname.replace("/service-worker.js", "");
+const BASE_URL = "https://raisiglpeter.github.io/5146-PWA";
 
 const FILES_TO_CACHE = [
-  `${BASE_URL}/`,
   `${BASE_URL}/index.html`,
   `${BASE_URL}/style.css`,
   `${BASE_URL}/app.js`,
