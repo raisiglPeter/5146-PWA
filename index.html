@@ -8,6 +8,26 @@
     <link rel="stylesheet" href="./style.css" />
     <link rel="manifest" href="./manifest.json" />
   </head>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"
+    type="module"
+  ></script>
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-T64GNXDNBG"
+    type="module"
+  ></script>
+  <script type="module">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-T64GNXDNBG");
+  </script>
   <body>
     <h1>My To-Do List change service-worker path</h1>
     <div class="container">
@@ -15,27 +35,6 @@
       <button id="addTaskBtn">Add Task</button>
       <ul id="taskList"></ul>
     </div>
-
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"
-      type="module"
-    ></script>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-T64GNXDNBG"
-      type="module"
-    ></script>
-    <script type="module">
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-T64GNXDNBG");
-    </script>
 
     <!-- main js file -->
     <script src="/app.js" type="module"></script>
