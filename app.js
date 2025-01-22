@@ -2,6 +2,8 @@ const taskInput = document.getElementById("taskInput");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
 
+console.log("this is a test");
+
 // import firebase, firestore
 import { initializeApp } from "firebase/app";
 import {
@@ -39,27 +41,24 @@ function sanitizeInput(input) {
 
 // add task and save to firestore
 addTaskBtn.addEventListener("click", async () => {
-  const taskInput = document.getElementById("taskInput");
-  const taskText = sanitizeInput(taskInput.value.trim());
+  const task = taskInput.value.trim();
+  if (task) {
+    const taskInput = document.getElementById("taskInput");
+    const taskText = taskInput.value.trim();
 
-  if (taskText) {
-    await addTaskToFirestore(taskText);
+    if (taskText) {
+      await addTaskToFirestore(taskText);
+      renderTasks();
+      taskInput.value = "";
+    }
     renderTasks();
-    taskInput.value = "";
   }
 });
-
-// add task to firestore
 async function addTaskToFirestore(taskText) {
-  try {
-    await addDoc(collection(db, "todos"), {
-      text: taskText,
-      completed: false,
-    });
-    console.log("Task added to Firestore:", taskText);
-  } catch (error) {
-    console.error("Error adding task to Firestore:", error);
-  }
+  await addDoc(collection(db, "todos"), {
+    text: taskText,
+    completed: false,
+  });
 }
 
 // get tasks from firestore
