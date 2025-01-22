@@ -8,6 +8,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      APP_NAME: "PWA Checklist App"
 
     steps:
       - name: Checkout repository
@@ -18,6 +20,10 @@ jobs:
           if [ -f package.json ]; then
             npm install
           fi
+
+      - name: Print Environment Variable
+        run: |
+          echo "App Name: $APP_NAME"
 
       - name: Build Project (if any build step exists)
         run: |
