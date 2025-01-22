@@ -1,9 +1,15 @@
 {
+  "type": "module",
   "dependencies": {
     "firebase": "^11.2.0",
     "firebase-admin": "^13.0.2",
     "gh-pages": "^6.3.0",
     "parcel": "^2.13.3"
   },
-  "scripts": { "build": "parcel build index.html"}
+  "scripts": {
+    "build": "parcel build index.html"
+  },
+  "devDependencies": {
+    "@parcel/transformer-webmanifest": "^2.13.3"
+  }
 }
