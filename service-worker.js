@@ -1,9 +1,8 @@
 const CACHE_NAME = "to-do-pwa-cache-v1";
 const FILES_TO_CACHE = [
-  "/5146-PWA/",
   "/5146-PWA/index.html",
   "/5146-PWA/style.css",
-  "/5146-PWA/app.js",
+  "/5146-PWA/app.js", // Ensure this matches the actual filename
   "/5146-PWA/manifest.json",
   "/5146-PWA/icons/icon-128.png",
   "/5146-PWA/icons/icon-512.png",
