@@ -1,34 +1,17 @@
 const CACHE_NAME = "to-do-pwa-cache-v1";
-const BASE_URL = "https://raisiglpeter.github.io/5146-PWA";
-
 const FILES_TO_CACHE = [
-  `${BASE_URL}/index.html`,
-  `${BASE_URL}/style.css`,
-  `${BASE_URL}/app.js`,
-  `${BASE_URL}/manifest.json`,
-  `${BASE_URL}/icons/icon-128.png`,
-  `${BASE_URL}/icons/icon-512.png`,
+  "/5146-PWA/",
+  "/5146-PWA/index.html",
+  "/5146-PWA/style.css",
+  "/5146-PWA/app.js",
+  "/5146-PWA/manifest.json",
+  "/5146-PWA/icons/icon-128.png",
+  "/5146-PWA/icons/icon-512.png",
 ];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log("Opening cache and adding files:", FILES_TO_CACHE);
-      return cache.addAll(FILES_TO_CACHE).catch((error) => {
-        console.error("Failed to cache files:", error);
-        // Log each file's fetch status
-        FILES_TO_CACHE.forEach(async (file) => {
-          try {
-            const response = await fetch(file);
-            if (!response.ok) {
-              console.error("File not found or cannot be fetched:", file);
-            }
-          } catch (fetchError) {
-            console.error("Fetch error for file:", file, fetchError);
-          }
-        });
-      });
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(FILES_TO_CACHE))
   );
 });
 
