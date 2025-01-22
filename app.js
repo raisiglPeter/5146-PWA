@@ -18,7 +18,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyBCdNAkePR48BW0AdSOONp7sOfIirYdRv0",
   authDomain: "pwa-5719b.firebaseapp.com",
   projectId: "pwa-5719b",
-  storageBucket: "pwa-5719b.firebasestorage.app",
+  storageBucket: "pwa-5719b",
   messagingSenderId: "1077986382281",
   appId: "1:1077986382281:web:f1cca2531b3b05ac199818",
   measurementId: "G-1NPPL3P4HF",
@@ -28,21 +28,25 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Add Task and add to firestore collection
-addTaskBtn.addEventListener("click", async () => {
-  const task = taskInput.value.trim();
-  if (task) {
-    const taskInput = document.getElementById("taskInput");
-    const taskText = taskInput.value.trim();
+// Function to sanitize input
+function sanitizeInput(input) {
+  const div = document.createElement("div");
+  div.textContent = input;
+  return div.innerHTML;
+}
 
-    if (taskText) {
-      await addTaskToFirestore(taskText);
-      renderTasks();
-      taskInput.value = "";
-    }
+// Add Task and save to Firestore
+addTaskBtn.addEventListener("click", async () => {
+  const taskInput = document.getElementById("taskInput");
+  const taskText = sanitizeInput(taskInput.value.trim()); // Sanitize input
+
+  if (taskText) {
+    await addTaskToFirestore(taskText);
     renderTasks();
+    taskInput.value = "";
   }
 });
+
 async function addTaskToFirestore(taskText) {
   await addDoc(collection(db, "todos"), {
     text: taskText,
@@ -50,7 +54,7 @@ async function addTaskToFirestore(taskText) {
   });
 }
 
-// fetch tasks from firestore on load
+// Fetch tasks from Firestore on load
 async function renderTasks() {
   var tasks = await getTasksFromFirestore();
   taskList.innerHTML = "";
@@ -98,7 +102,7 @@ if ("serviceWorker" in navigator) {
     .catch((err) => console.error("Service Worker Error:", err));
 }
 
-// error handling
+// Error handling
 window.addEventListener("error", function (event) {
   console.error("Error occurred: ", event.message);
 });
