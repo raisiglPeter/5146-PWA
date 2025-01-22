@@ -37,24 +37,16 @@ function sanitizeInput(input) {
 
 // add task and save to firestore
 addTaskBtn.addEventListener("click", async () => {
-  const task = taskInput.value.trim();
-  if (task) {
-    const taskInput = document.getElementById("taskInput");
-    const taskText = taskInput.value.trim();
-
-    if (taskText) {
-      await addTaskToFirestore(taskText);
-      renderTasks();
-      taskInput.value = "";
-    }
+  const taskInput = document.getElementById("taskInput");
+  const taskText = sanitizeInput(taskInput.value.trim());
+  if (taskText) {
+    await addTaskToFirestore(taskText);
     renderTasks();
+    taskInput.value = "";
   }
 });
 async function addTaskToFirestore(taskText) {
-  await addDoc(collection(db, "todos"), {
-    text: taskText,
-    completed: false,
-  });
+  await addDoc(collection(db, "todos"), { text: taskText, completed: false });
 }
 
 // get tasks from firestore
