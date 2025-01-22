@@ -2,7 +2,7 @@ const taskInput = document.getElementById("taskInput");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
 
-// Import the functions you need from the SDKs you need
+// import firebase, firestore
 import { initializeApp } from "firebase/app";
 import {
   doc,
@@ -13,7 +13,7 @@ import {
   collection,
 } from "firebase/firestore";
 
-// Your web app's Firebase configuration
+// firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBCdNAkePR48BW0AdSOONp7sOfIirYdRv0",
   authDomain: "pwa-5719b.firebaseapp.com",
@@ -24,21 +24,21 @@ const firebaseConfig = {
   measurementId: "G-1NPPL3P4HF",
 };
 
-// Initialize Firebase
+// initialize firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Function to sanitize input
+// sanitize input
 function sanitizeInput(input) {
   const div = document.createElement("div");
   div.textContent = input;
   return div.innerHTML;
 }
 
-// Add Task and save to Firestore
+// add task and save to firestore
 addTaskBtn.addEventListener("click", async () => {
   const taskInput = document.getElementById("taskInput");
-  const taskText = sanitizeInput(taskInput.value.trim()); // Sanitize input
+  const taskText = sanitizeInput(taskInput.value.trim());
 
   if (taskText) {
     await addTaskToFirestore(taskText);
@@ -47,6 +47,7 @@ addTaskBtn.addEventListener("click", async () => {
   }
 });
 
+// add task to firestore
 async function addTaskToFirestore(taskText) {
   await addDoc(collection(db, "todos"), {
     text: taskText,
@@ -54,7 +55,7 @@ async function addTaskToFirestore(taskText) {
   });
 }
 
-// Fetch tasks from Firestore on load
+// get tasks from firestore
 async function renderTasks() {
   var tasks = await getTasksFromFirestore();
   taskList.innerHTML = "";
@@ -78,13 +79,14 @@ async function getTasksFromFirestore() {
   return userData;
 }
 
-// Remove Task on Click
+// remove task
 taskList.addEventListener("click", (e) => {
   if (e.target.tagName === "LI") {
     e.target.remove();
   }
 });
 
+// service worker
 const sw = new URL("service-worker.js", import.meta.url);
 if ("serviceWorker" in navigator) {
   const s = navigator.serviceWorker;
