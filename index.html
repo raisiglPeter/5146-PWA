@@ -9,37 +9,28 @@
     <link rel="manifest" href="manifest.json" />
   </head>
   <body>
-    <h1>My To-Do List with CI/CD test</h1>
+    <h1>My To-Do List firestore collection added</h1>
     <div class="container">
       <input type="text" id="taskInput" placeholder="Enter a new task" />
       <button id="addTaskBtn">Add Task</button>
       <ul id="taskList"></ul>
     </div>
-    <script src="app.js"></script>
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("/5146-PWA/service-worker.js", {
-            scope: "/5146-PWA/",
-          })
-          .then((reg) => console.log("Service Worker Registered"))
-          .catch((err) => console.error("Service Worker Error:", err));
-      }
-      window.addEventListener("error", function (event) {
-        console.error("Error occurred: ", event.message);
-      });
-    </script>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"
-    ></script>
+
+    <!-- main js file -->
+    <script src="app.js" type="module"></script>
 
     <!-- Google tag (gtag.js) -->
     <script
       async
-      src="https://www.googletagmanager.com/gtag/js?id=G-T64GNXDNBG"
+      src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"
+      type="module"
     ></script>
-    <script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-T64GNXDNBG"
+      type="module"
+    ></script>
+    <script type="module">
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
