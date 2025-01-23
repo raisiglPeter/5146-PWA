@@ -1,10 +1,10 @@
 // import firebase, firestore
 import { initializeApp } from "firebase/app";
 import {
-  doc,
+  // doc,
   getDocs,
   addDoc,
-  updateDoc,
+  // updateDoc,
   getFirestore,
   collection,
 } from "firebase/firestore";
@@ -16,7 +16,7 @@ if ("serviceWorker" in navigator) {
   s.register(sw.href, {
     scope: "/5146-PWA/",
   })
-    .then((_) =>
+    .then(() =>
       console.log(
         "Service Worker Registered for scope:",
         sw.href,
@@ -87,7 +87,7 @@ async function renderTasks() {
     }
   });
 }
-
+// add task to firestore
 async function addTaskToFirestore(taskText) {
   await addDoc(collection(db, "todos"), { text: taskText, completed: false });
 }
