@@ -78,7 +78,7 @@ async function renderTasks() {
   var tasks = await getTasksFromFirestore();
   taskList.innerHTML = "";
 
-  tasks.forEach((task, index) => {
+  tasks.forEach((task) => {
     if (!task.data().completed) {
       const taskItem = document.createElement("li");
       taskItem.id = task.id;
