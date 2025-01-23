@@ -11,11 +11,22 @@ const FILES_TO_CACHE = [
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      cache.addAll(FILES_TO_CACHE).then(() => {
-        console.log("Caching files:", FILES_TO_CACHE);
-      });
-    })
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => {
+        console.log("Opened cache:", CACHE_NAME);
+        cache
+          .addAll(FILES_TO_CACHE)
+          .then(() => {
+            console.log("Caching files:", FILES_TO_CACHE);
+          })
+          .catch((error) => {
+            console.error("Failed to cache files:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Failed to open cache:", error);
+      })
   );
 });
 
