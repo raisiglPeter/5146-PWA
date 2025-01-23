@@ -1,10 +1,10 @@
 // import firebase, firestore
 import { initializeApp } from "firebase/app";
 import {
-  // doc,
+  doc,
   getDocs,
   addDoc,
-  // updateDoc,
+  updateDoc,
   getFirestore,
   collection,
 } from "firebase/firestore";
@@ -67,10 +67,13 @@ addTaskBtn.addEventListener("click", async () => {
 });
 
 // remove task
-taskList.addEventListener("click", (e) => {
+taskList.addEventListener("click", async (e) => {
   if (e.target.tagName === "LI") {
-    e.target.remove();
+    await updateDoc(doc(db, "todos", e.target.id), {
+      completed: true,
+    });
   }
+  renderTasks();
 });
 
 // get tasks from firestore
