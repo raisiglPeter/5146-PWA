@@ -27,11 +27,15 @@ input[type="text"] {
 
 button {
   padding: 10px 15px;
-  background-color: #0078d7;
+  background-color: #004985;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+button:focus {
+  outline: 2px solid #d4008d; /* Add a visible focus outline */
 }
 
 button:hover {
