@@ -1,21 +1,67 @@
-body {
-  font-family: Arial, sans-serif;
+:root {
+  --white-smoke: #f4f4f4ff;
+  --heliotrope: #ca7df9ff;
+  --majorelle-blue: #724cf9ff;
+  --bittersweet: #f25c54ff;
+  --dark-cyan: #0b5c60;
+}
+* {
   margin: 0;
   padding: 0;
-  text-align: center;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Courier New", Courier, monospace;
   background-color: #f4f4f4;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
-
-h1 {
-  background-color: #004985;
+header {
+  background-color: var(--dark-cyan);
   color: white;
-  padding: 10px;
-  margin: 0;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
-
-.container {
-  margin: 20px auto;
-  max-width: 400px;
+.header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 999px;
+  padding: 1rem;
+}
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 100%;
+}
+li {
+  border: none;
+  border-width: 0;
+  border-radius: 0;
+  color: var(--dark-cyan);
+  background-color: var(--white-smoke);
+  font-weight: 600;
+  flex: 1;
+  text-align: center;
+  padding: 1rem 0;
+}
+li:hover {
+  color: var(--heliotrope);
+}
+h1 {
+  padding: 1rem;
+}
+.recipe-container {
+  padding: 1rem;
+  margin: 0 auto;
+  min-width: 100%;
 }
 
 input[type="text"] {
@@ -32,13 +78,14 @@ label {
 
 button {
   padding: 10px 15px;
-  background-color: #004985;
+  background-color: var(--dark-cyan);
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
+/* // accessibility */
 button:focus {
   outline: 2px solid #d4008d; /* Add a visible focus outline */
 }
@@ -52,10 +99,20 @@ ul {
   padding: 0;
 }
 
-li {
-  background: white;
-  margin: 5px 0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+/* TABLET  */
+/* DESKTOP  */
+/* header {
+  background-color: #004985;
+  color: white;
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
 }
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 999px;
+  padding: 1rem;
+} */
