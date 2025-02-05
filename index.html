@@ -9,6 +9,26 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
   </head>
+  <body>
+    <header>
+      <h1>My To-Do List</h1>
+    </header>
+    <div class="container">
+      <label for="taskInput"><h2>Enter a task</h2></label>
+      <input
+        name="taskInput"
+        type="text"
+        id="taskInput"
+        placeholder="Enter a new task"
+      />
+      <button id="addTaskBtn">Add Task</button>
+      <ul id="taskList"></ul>
+    </div>
+
+    <!-- main js file -->
+    <script src="app.js" type="module"></script>
+  </body>
+
   <!-- Google tag (gtag.js) -->
   <script
     async
@@ -29,15 +49,4 @@
 
     gtag("config", "G-T64GNXDNBG");
   </script>
-  <body>
-    <h1>My To-Do List</h1>
-    <div class="container">
-      <input type="text" id="taskInput" placeholder="Enter a new task" />
-      <button id="addTaskBtn">Add Task</button>
-      <ul id="taskList"></ul>
-    </div>
-
-    <!-- main js file -->
-    <script src="app.js" type="module"></script>
-  </body>
 </html>
