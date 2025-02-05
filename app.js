@@ -121,6 +121,6 @@ window.addEventListener("error", function (event) {
 log.setLevel("info");
 
 // Example logs
-log.info("Application started");
-log.debug("Debugging information");
-log.error("An error occurred");
+// log.info("Application started");
+// log.debug("Debugging information");
+// log.error("An error occurred");
