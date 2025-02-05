@@ -4,12 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b5c60" />
-    <title>Checklist App</title>
+    <title>Recipe App</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
   </head>
   <body>
+    <!-- HEADER / NAV  -->
     <header>
       <div class="header-container">
         <h1>My Recipe Organizer</h1>
@@ -17,44 +18,58 @@
         <p>for INFO-5146</p>
       </div>
       <ul class="navigation-container">
+        <li>Add</li>
         <li>Home</li>
         <li>Favourite</li>
       </ul>
     </header>
+
+    <!-- NEW RECIPE INPUT  -->
     <div class="add-container">
-      <label for="taskInput"><h2>Add Recipe</h2></label>
+      <label for="recipeInput"><h2>Add Recipe</h2></label>
       <input
-        name="taskInput"
+        name="recipeInput"
         type="text"
-        id="taskInput"
+        id="recipeInput"
         placeholder="Enter Recipe Title"
       />
-      <button id="addTaskBtn">Add Recipe</button>
-      <ul id="taskList"></ul>
+      <button id="addRecipeButton">Add Recipe</button>
     </div>
 
-    <!-- main js file -->
+    <!-- RECIPE LIST  -->
+    <div class="recipe-list-container">
+      <ul id="recipeList">
+        <!-- <li id="DKmDtp8xA6LCFxFZlbpC" class="ingredient-container">
+          <h3>Poutine</h3>
+          <ol>
+            <li>Potatoes</li>
+          </ol>
+        </li>
+        <li id="MlT7swU8Tm6zQSDiXSP6">this is a test of firestore 2</li> -->
+      </ul>
+    </div>
+
+    <!-- MAIN JS FILE -->
     <script src="app.js" type="module"></script>
+    <!-- Google tag JS -->
+    <script
+      async
+      type="module"
+      src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"
+    ></script>
+    <script
+      async
+      type="module"
+      src="https://www.googletagmanager.com/gtag/js?id=G-T64GNXDNBG"
+    ></script>
+    <script type="module">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-T64GNXDNBG");
+    </script>
   </body>
-
-  <!-- Google tag (gtag.js) -->
-  <script
-    async
-    type="module"
-    src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"
-  ></script>
-  <script
-    async
-    type="module"
-    src="https://www.googletagmanager.com/gtag/js?id=G-T64GNXDNBG"
-  ></script>
-  <script type="module">
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "G-T64GNXDNBG");
-  </script>
 </html>
