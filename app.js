@@ -43,32 +43,32 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const taskInput = document.getElementById("taskInput");
-const addTaskBtn = document.getElementById("addTaskBtn");
-const taskList = document.getElementById("taskList");
+const recipeInput = document.getElementById("recipeInput");
+const addRecipeButton = document.getElementById("addRecipeButton");
+const recipeList = document.getElementById("recipeList");
 
 window.addEventListener("load", () => {
   renderTasks();
 });
 
 // add task and save to firestore
-addTaskBtn.addEventListener("click", async () => {
-  const task = taskInput.value.trim();
+addRecipeButton.addEventListener("click", async () => {
+  const task = recipeInput.value.trim();
   if (task) {
-    const taskInput = document.getElementById("taskInput");
-    const taskText = sanitizeInput(taskInput.value.trim());
+    const recipeInput = document.getElementById("recipeInput");
+    const taskText = sanitizeInput(task);
 
     if (taskText) {
       await addTaskToFirestore(taskText);
       renderTasks();
-      taskInput.value = "";
+      recipeInput.value = "";
     }
     renderTasks();
   }
 });
 
 // remove task
-taskList.addEventListener("click", async (e) => {
+recipeList.addEventListener("click", async (e) => {
   if (e.target.tagName === "LI") {
     await updateDoc(doc(db, "todos", e.target.id), {
       completed: true,
@@ -80,14 +80,14 @@ taskList.addEventListener("click", async (e) => {
 // get tasks from firestore
 async function renderTasks() {
   var tasks = await getTasksFromFirestore();
-  taskList.innerHTML = "";
+  recipeList.innerHTML = "";
 
   tasks.forEach((task) => {
     if (!task.data().completed) {
       const taskItem = document.createElement("li");
       taskItem.id = task.id;
       taskItem.textContent = task.data().text;
-      taskList.appendChild(taskItem);
+      recipeList.appendChild(taskItem);
     }
   });
 }
