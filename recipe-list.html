@@ -101,12 +101,41 @@
         },
         {
           heading: "Recipe 2",
-          description: "This is where the method will be described.",
+          description:
+            "This is where the method will be described. You should probably make sure this field can accept long text and format it accordingly.",
           steps: ["Boil potatoes", "Make salad"],
           tags: ["potatoes", "mayonaisse"],
-          favourite: false,
+          favourite: true,
         },
       ];
+      document.addEventListener("DOMContentLoaded", () => {
+        const recipeListDiv = document.querySelector(".recipe-list");
+
+        function renderRecipes(recipes) {
+          recipeListDiv.innerHTML = ""; // Clear existing recipes
+          recipes.forEach((recipe) => {
+            const recipeCard = document.createElement("div");
+            recipeCard.classList.add("recipe-card");
+
+            recipeCard.innerHTML = `
+        <h2>${recipe.heading}</h2>
+        <p>${recipe.description}</p>
+        <h4>Steps:</h4>
+        <ol>
+          ${recipe.steps
+            .map((step, index) => `<li>${index + 1}. ${step}</li>`)
+            .join("")}
+        </ol>
+        <p><strong>Tags:</strong> ${recipe.tags.join(", ")}</p>
+        <p><strong>Favourite:</strong> ${recipe.favourite ? "❤️" : "❌"}</p>
+      `;
+
+            recipeListDiv.appendChild(recipeCard);
+          });
+        }
+
+        renderRecipes(testList); // Render test data on page load
+      });
     </script>
   </body>
 </html>
