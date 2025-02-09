@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b5c60" />
+    <title>Recipe App</title>
+    <link rel="stylesheet" href="style-recipe.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
+  </head>
+  <body>
+    <!-- HEADER / NAV  -->
+    <header>
+      <div class="header-container">
+        <h1>My Recipe Organizer</h1>
+        <p>by Petr Raisigl</p>
+        <p>for INFO-5146</p>
+      </div>
+      <ul class="navigation-container">
+        <li id="add-recipe-button">Add</li>
+        <li>Home</li>
+        <li>Favourite</li>
+      </ul>
+    </header>
+    <main>
+      <!-- ADD RECIPE MODAL  -->
+      <div class="add-modal">
+        <div class="add-modal-div">
+          <label for="recipe-title" class="recipe-label">
+            Recipe Title
+            <input
+              class="recipe-input"
+              name="recipe-title-input"
+              type="text"
+              id="recipe-title"
+            />
+          </label>
+        </div>
+        <div class="add-modal-div">
+          <label for="recipe-description" class="recipe-label">
+            Recipe Description
+            <textarea
+              class="recipe-input"
+              name="recipe-title-input"
+              type="text"
+              id="recipe-description"
+            ></textarea>
+          </label>
+        </div>
+        <div class="add-modal-div">
+          <label for="recipe-tags" class="recipe-label">
+            Recipe Tags
+            <input
+              class="recipe-input"
+              name="recipe-title-input"
+              type="text"
+              id="recipe-tags"
+            />
+            <div class="tags-preview"><p></p></div>
+          </label>
+          <div class="add-modal-div">
+            <button>Add</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const addButton = document.getElementById("add-recipe-button");
+        const addModal = document.querySelector(".add-modal");
+
+        addButton.addEventListener("click", () => {
+          addModal.style.display =
+            addModal.style.display === "none" || addModal.style.display === ""
+              ? "flex"
+              : "none";
+        });
+      });
+      const testList = [
+        {
+          heading: "Recipe 1",
+          description: "This is where the method will be described.",
+          steps: ["Boil potatoes", "Make salad"],
+          tags: ["potatoes", "mayonaisse"],
+          favourite: false,
+        },
+        {
+          heading: "Recipe 2",
+          description: "This is where the method will be described.",
+          steps: ["Boil potatoes", "Make salad"],
+          tags: ["potatoes", "mayonaisse"],
+          favourite: false,
+        },
+      ];
+    </script>
+  </body>
+</html>
