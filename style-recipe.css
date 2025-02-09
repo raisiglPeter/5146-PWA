@@ -1,0 +1,108 @@
+:root {
+  /* CSS HEX */
+  --heliotrope: #ca7df9;
+  --white-smoke: #f4f4f4;
+  --bright-pink-crayola: #f26a8d;
+  --amaranth-pink: #f49cbb;
+  --light-cyan: #cbeef3;
+  --black: #000;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Courier New", Courier, monospace;
+  background-color: var(--white-smoke);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+p {
+  font-weight: 500;
+}
+
+/* HEADER NAV  */
+header {
+  background-color: var(--heliotrope);
+  color: black;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 999px;
+  padding: 1rem;
+}
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 100%;
+}
+ul {
+  list-style: none;
+}
+li {
+  color: var(--black);
+  background-color: var(--white-smoke);
+  font-weight: 600;
+  flex: 1;
+  text-align: center;
+  padding: 1rem 0;
+}
+li:hover {
+  color: var(--heliotrope);
+}
+
+/* MAIN CONTENT  */
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.add-modal {
+  background-color: var(--amaranth-pink);
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 100%;
+  gap: 0.5rem;
+  align-items: start;
+  padding: 1rem;
+}
+.add-modal-div {
+  min-width: 100%;
+  background-color: var(--amaranth-pink);
+  margin: 0 auto;
+  max-width: 999px;
+}
+.recipe-label {
+  font-weight: 600;
+}
+.recipe-input {
+  margin-top: 0.5rem;
+  min-width: 100%;
+  background-color: var(--white-smoke);
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+/* TABLET LAYOUT */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets */
+}
+
+/* DESKTOP LAYOUT */
+@media (min-width: 1024px) {
+  /* Styles for desktops */
+}

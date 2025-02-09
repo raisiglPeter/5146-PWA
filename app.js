@@ -53,6 +53,9 @@ window.addEventListener("load", () => {
 
 // add task and save to firestore
 addRecipeButton.addEventListener("click", async () => {
+  // TODO: open add modal
+  // more input fields
+
   const task = recipeInput.value.trim();
   if (task) {
     const recipeInput = document.getElementById("recipeInput");
@@ -67,7 +70,9 @@ addRecipeButton.addEventListener("click", async () => {
   }
 });
 
-// remove task
+// TODO: edit recipe
+
+// remove recipe
 recipeList.addEventListener("click", async (e) => {
   if (e.target.tagName === "LI") {
     await updateDoc(doc(db, "todos", e.target.id), {
@@ -79,10 +84,10 @@ recipeList.addEventListener("click", async (e) => {
 
 // get tasks from firestore
 async function renderTasks() {
-  var tasks = await getTasksFromFirestore();
+  var recipes = await getTasksFromFirestore();
   recipeList.innerHTML = "";
 
-  tasks.forEach((task) => {
+  recipes.forEach((task) => {
     if (!task.data().completed) {
       const taskItem = document.createElement("li");
       taskItem.id = task.id;
