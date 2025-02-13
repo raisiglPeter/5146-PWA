@@ -18,9 +18,9 @@
         <p>for INFO-5146</p>
       </div>
       <ul class="navigation-container">
-        <li id="add-recipe-button">Add</li>
-        <li>Home</li>
-        <li>Favourite</li>
+        <li class="nav-li" id="add-recipe-button">Add</li>
+        <li class="nav-li">Home</li>
+        <li class="nav-li">Favourite</li>
       </ul>
     </header>
     <main>
@@ -75,6 +75,7 @@
         </div>
       </div>
 
+      <!-- RECIPE LIST  -->
       <div class="recipe-list"></div>
     </main>
     <script>
@@ -90,6 +91,7 @@
               : "none";
         });
       });
+
       // test data
       const testList = [
         {
@@ -108,6 +110,8 @@
           favourite: true,
         },
       ];
+
+      // populate recipe list
       document.addEventListener("DOMContentLoaded", () => {
         const recipeListDiv = document.querySelector(".recipe-list");
 
@@ -118,17 +122,15 @@
             recipeCard.classList.add("recipe-card");
 
             recipeCard.innerHTML = `
-        <h2>${recipe.heading}</h2>
-        <p>${recipe.description}</p>
-        <h4>Steps:</h4>
-        <ol>
-          ${recipe.steps
-            .map((step, index) => `<li>${index + 1}. ${step}</li>`)
-            .join("")}
-        </ol>
-        <p><strong>Tags:</strong> ${recipe.tags.join(", ")}</p>
-        <p><strong>Favourite:</strong> ${recipe.favourite ? "❤️" : "❌"}</p>
-      `;
+                <h2>${recipe.favourite ? "❤️" : ""}${recipe.heading} </h2>
+                <p>${recipe.description}</p>
+                <h4 class="recipe-list-h4">Steps:</h4>
+                <ol class="ordered-list">
+                ${recipe.steps
+                  .map((step, index) => `<li>${index + 1}. ${step}</li>`)
+                  .join("")}
+                </ol>
+                <p class="recipe-tags"></p>`;
 
             recipeListDiv.appendChild(recipeCard);
           });

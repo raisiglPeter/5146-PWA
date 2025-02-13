@@ -56,10 +56,11 @@ header {
   align-items: center;
   min-width: 100%;
 }
-ul {
+ul,
+ol {
   list-style: none;
 }
-li {
+.nav-li {
   color: var(--black);
   background-color: var(--white-smoke);
   font-weight: 600;
@@ -68,7 +69,7 @@ li {
   padding: 1rem 0;
   cursor: pointer;
 }
-li:hover {
+.nav-li:hover {
   color: var(--heliotrope);
 }
 
@@ -124,12 +125,25 @@ main {
   padding: 0.5rem 0;
 }
 
+/* RECIPE LIST  */
+.recipe-list {
+  padding: 1rem;
+  width: 100%;
+}
+.recipe-list-h4 {
+  padding-top: 0.5rem;
+}
+
 /* TABLET LAYOUT */
 @media (min-width: 768px) and (max-width: 1023px) {
-  /* Styles for tablets */
+  main {
+    max-width: 999px;
+  }
 }
 
 /* DESKTOP LAYOUT */
 @media (min-width: 1024px) {
-  /* Styles for desktops */
+  .add-modal-div {
+    max-width: 50%;
+  }
 }
