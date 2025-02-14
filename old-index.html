@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b5c60" />
+    <title>Recipe App</title>
+    <link rel="stylesheet" href="style-recipe.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
+  </head>
+  <body>
+    <!-- HEADER / NAV  -->
+    <header>
+      <div class="header-container">
+        <h1>My Recipe Organizer</h1>
+        <p>by Petr Raisigl</p>
+        <p>for INFO-5146</p>
+      </div>
+      <ul class="navigation-container">
+        <li class="nav-li" id="add-recipe-button">Add</li>
+        <li class="nav-li">Home</li>
+        <li class="nav-li">Favourite</li>
+      </ul>
+    </header>
+
+    <!-- NEW RECIPE INPUT  -->
+    <div class="add-container">
+      <label for="recipeInput"><h2>Add Recipe</h2></label>
+      <input
+        name="recipeInput"
+        type="text"
+        id="recipeInput"
+        class="recipeInput"
+        placeholder="Enter Recipe Title"
+      />
+      <button id="addRecipeButton">Add Recipe</button>
+    </div>
+
+    <!-- ADD RECIPE MODAL  -->
+    <div class="add-modal">
+      <label for="recipe-title-input">
+        <input
+          class="recipeInput"
+          name="recipe-title-input"
+          type="text"
+          id="recipe-title-input"
+        />
+      </label>
+    </div>
+
+    <!-- RECIPE LIST  -->
+    <div class="recipe-list-container">
+      <ul id="recipeList"></ul>
+    </div>
+
+    <!-- MAIN JS FILE -->
+    <script src="app.js" type="module"></script>
+    <!-- Google tag JS -->
+    <script
+      async
+      type="module"
+      src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"
+    ></script>
+    <script
+      async
+      type="module"
+      src="https://www.googletagmanager.com/gtag/js?id=G-T64GNXDNBG"
+    ></script>
+    <script type="module">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-T64GNXDNBG");
+    </script>
+  </body>
+</html>

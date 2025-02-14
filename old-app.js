@@ -10,6 +10,14 @@ import {
 } from "firebase/firestore";
 import log from "loglevel";
 
+// initialize firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const recipeInput = document.getElementById("recipeInput");
+const addRecipeButton = document.getElementById("addRecipeButton");
+const recipeList = document.getElementById("recipeList");
+
 // service worker
 const sw = new URL("service-worker.js", import.meta.url);
 if ("serviceWorker" in navigator) {
@@ -39,14 +47,6 @@ const firebaseConfig = {
   measurementId: "G-1NPPL3P4HF",
 };
 
-// initialize firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const recipeInput = document.getElementById("recipeInput");
-const addRecipeButton = document.getElementById("addRecipeButton");
-const recipeList = document.getElementById("recipeList");
-
 window.addEventListener("load", () => {
   renderTasks();
 });
@@ -56,7 +56,6 @@ addRecipeButton.addEventListener("click", async () => {
   // TODO: open add modal
   // more input fields
 
-  const task = recipeInput.value.trim();
   if (task) {
     const recipeInput = document.getElementById("recipeInput");
     const taskText = sanitizeInput(task);
