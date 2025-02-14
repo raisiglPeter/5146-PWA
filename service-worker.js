@@ -1,4 +1,4 @@
-const CACHE_NAME = "to-do-pwa-cache-v1";
+const CACHE_NAME = "my-recipe-organizer";
 const FILES_TO_CACHE = [
   "/5146-PWA/",
   "/5146-PWA/index.html",
