@@ -116,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const deleteButton = recipeCard.querySelector(".delete-btn");
 
       editButton.addEventListener("click", () => {
-        editIndex = index;
         document.getElementById("recipe-title").value = recipe.title;
         document.getElementById("recipe-description").value =
           recipe.description;
