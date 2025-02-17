@@ -52,7 +52,7 @@ function renderRecipes(recipes) {
   const recipeListDiv = document.querySelector(".recipe-list");
   recipeListDiv.innerHTML = "";
 
-  recipes.forEach((recipe, index) => {
+  recipes.forEach((recipe) => {
     const recipeCard = document.createElement("div");
     const editButton = recipeCard.querySelector(".edit-btn");
     const deleteButton = recipeCard.querySelector(".delete-btn");
