@@ -9,7 +9,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      APP_NAME: "PWA Recipt App"
+      APP_NAME: "PWA Recipe App"
 
     steps:
       - name: Checkout repository
