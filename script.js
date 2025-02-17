@@ -55,7 +55,6 @@ const recipeList = [
     favourite: true,
   },
 ];
-let editIndex = null;
 
 // adding HTML elements
 document.addEventListener("DOMContentLoaded", () => {
