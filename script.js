@@ -84,7 +84,6 @@ async function loadRecipes() {
   data.forEach((doc) => {
     recipes.push({ id: doc.id, ...doc.data() });
   });
-  recipeList = recipes;
   renderRecipes(recipes);
 }
 
