@@ -1,6 +1,4 @@
-console.log("script run");
-
-// Firebase
+// firebase
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
@@ -10,7 +8,6 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-
 const firebaseConfig = {
   apiKey: "AIzaSyBCdNAkePR48BW0AdSOONp7sOfIirYdRv0",
   authDomain: "pwa-5719b.firebaseapp.com",
@@ -20,10 +17,10 @@ const firebaseConfig = {
   appId: "1:1077986382281:web:f1cca2531b3b05ac199818",
   measurementId: "G-1NPPL3P4HF",
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// FIRESTORE
 async function loadRecipes() {
   const data = await getDocs(collection(db, "recipes"));
   const recipes = [];
@@ -33,6 +30,67 @@ async function loadRecipes() {
   renderRecipes(recipes);
 }
 
+// render recipes HTML
+function renderRecipes(recipes) {
+  recipeListDiv.innerHTML = "";
+  recipes.forEach((recipe, index) => {
+    const recipeCard = document.createElement("div");
+    const editButton = recipeCard.querySelector(".edit-btn");
+    const deleteButton = recipeCard.querySelector(".delete-btn");
+    recipeCard.classList.add("recipe-card");
+
+    recipeCard.innerHTML = `
+          <h2>${recipe.title} ${recipe.favourite ? "❤️" : ""}</h2>
+          <p>${recipe.description}</p>
+          <h4 class="recipe-list-h4">Steps:</h4>
+          <ol class="ordered-list">
+            ${recipe.steps
+              .map((step, i) => `<li>${i + 1}. ${step}</li>`)
+              .join("")}
+          </ol>
+          <h5>Tags</h5>
+          <p class="recipe-tags">${recipe.tags.join(", ")}</p>
+          <div class="recipe-buttons">
+            <button class="button recipe-button edit-btn">Edit</button>
+            <button class="button recipe-button delete-btn">Delete</button>
+          </div>
+        `;
+
+    editButton.addEventListener("click", () => {
+      document.getElementById("recipe-title").value = recipe.title;
+      document.getElementById("recipe-description").value = recipe.description;
+      document.getElementById("recipe-favourite").checked = recipe.favourite;
+
+      stepMemory.length = 0;
+      stepsPreview.innerHTML = "";
+      recipe.steps.forEach((step) => {
+        stepMemory.push(step);
+        const newStep = document.createElement("li");
+        newStep.textContent = step;
+        stepsPreview.appendChild(newStep);
+      });
+
+      tagMemory.length = 0;
+      tagsPreview.textContent = "";
+      recipe.tags.forEach((tag) => {
+        tagMemory.push(tag);
+      });
+      tagsPreview.textContent = tagMemory.join(", ");
+
+      addModal.style.display = "flex";
+      showModalButton.style.backgroundColor = "#f49cbb";
+    });
+
+    deleteButton.addEventListener("click", () => {
+      recipeList.splice(index, 1);
+      renderRecipes(recipeList);
+    });
+
+    recipeListDiv.appendChild(recipeCard);
+  });
+}
+
+// adding HTML elements and event listeners on load
 document.addEventListener("DOMContentLoaded", () => {
   loadRecipes();
 
@@ -52,38 +110,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const homeButton = document.getElementById("home-button");
   const favouriteButton = document.getElementById("favourite-button");
 
-  function renderRecipes(recipes) {
-    recipeListDiv.innerHTML = "";
-    recipes.forEach((recipe) => {
-      const recipeCard = document.createElement("div");
-      recipeCard.classList.add("recipe-card");
-      recipeCard.innerHTML = `
-          <h2>${recipe.title} ${recipe.favourite ? "❤️" : ""}</h2>
-          <p>${recipe.description}</p>
-          <h4 class="recipe-list-h4">Steps:</h4>
-          <ol class="ordered-list">
-            ${recipe.steps
-              .map((step, i) => `<li>${i + 1}. ${step}</li>`)
-              .join("")}
-          </ol>
-          <h5>Tags</h5>
-          <p class="recipe-tags">${recipe.tags.join(", ")}</p>
-          <div class="recipe-buttons">
-            <button class="button recipe-button edit-btn">Edit</button>
-            <button class="button recipe-button delete-btn">Delete</button>
-          </div>
-        `;
+  // FIXME:
+  // const tagFilter = document.getElementById("tag-filter");
+  // render all tags
+  // tagFilter.innerHTML =
+  //   `Filter: ` +
+  //   recipeList
+  //     .flatMap((recipe) => recipe.tags)
+  //     .map((tag) => `<button class="filter-button">${tag}</button>`)
+  //     .join("");
 
-      const deleteButton = recipeCard.querySelector(".delete-btn");
-      deleteButton.addEventListener("click", async () => {
-        await deleteDoc(doc(db, "recipes", recipe.id));
-        loadRecipes();
-      });
-
-      recipeListDiv.appendChild(recipeCard);
-    });
-  }
-
+  // MODAL BUTTONS
   addStepButton.addEventListener("click", () => {
     const stepValue = stepInput.value.trim();
     if (stepValue !== "") {
@@ -94,16 +131,16 @@ document.addEventListener("DOMContentLoaded", () => {
       stepInput.value = "";
     }
   });
-
   addTagButton.addEventListener("click", () => {
     const tagValue = tagInput.value.trim();
-    if (tagValue !== "" && !tagMemory.includes(tagValue)) {
-      tagMemory.push(tagValue);
+    if (tagValue !== "") {
+      if (!tagMemory.includes(tagValue)) {
+        tagMemory.push(tagValue);
+      }
       tagsPreview.textContent = "Tags: " + tagMemory.join(", ");
       tagInput.value = "";
     }
   });
-
   resetButton.addEventListener("click", () => {
     document
       .querySelectorAll(".recipe-input")
@@ -113,8 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
     tagMemory.length = 0;
     tagsPreview.textContent = "";
   });
-
   addRecipeButton.addEventListener("click", async () => {
+    // getting values from title, description and favourite checkbox
     const title = document.getElementById("recipe-title").value.trim();
     const description = document
       .getElementById("recipe-description")
@@ -130,29 +167,43 @@ document.addEventListener("DOMContentLoaded", () => {
         favourite,
         createdAt: new Date(),
       };
+
+      // recipeList.push(newRecipe);
+      // renderRecipes(recipeList);
+
+      // FIRESTORE ADD RECIPE
       await addDoc(collection(db, "recipes"), newRecipe);
       loadRecipes();
+
+      // Reset input fields after adding recipe
       resetButton.click();
       addModal.style.display = "none";
       showModalButton.style.backgroundColor = "#f4f4f4";
     }
   });
 
+  // NAVIGATION BUTTONS
+  // Show/hide modal and change button color
+  showModalButton.addEventListener("click", () => {
+    if (addModal.style.display === "none" || addModal.style.display === "") {
+      addModal.style.display = "flex";
+      showModalButton.style.backgroundColor = "#f49cbb";
+    } else {
+      addModal.style.display = "none";
+      showModalButton.style.backgroundColor = "#f4f4f4";
+    }
+  });
+  // home button
   homeButton.addEventListener("click", () => {
     addModal.style.display = "none";
     showModalButton.style.backgroundColor = "#f4f4f4";
-    loadRecipes();
+    renderRecipes(recipeList); // Render full recipe list
+  });
+  // Favourite button event listener
+  favouriteButton.addEventListener("click", () => {
+    const favouriteRecipes = recipeList.filter((recipe) => recipe.favourite);
+    renderRecipes(favouriteRecipes); // Render only favourite recipes
   });
 
-  favouriteButton.addEventListener("click", async () => {
-    const data = await getDocs(collection(db, "recipes"));
-    const favouriteRecipes = [];
-    data.forEach((doc) => {
-      const recipe = { id: doc.id, ...doc.data() };
-      if (recipe.favourite) {
-        favouriteRecipes.push(recipe);
-      }
-    });
-    renderRecipes(favouriteRecipes);
-  });
+  renderRecipes(recipeList); // Initial render
 });
