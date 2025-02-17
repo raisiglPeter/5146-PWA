@@ -110,7 +110,7 @@
 
     <!-- MAIN JS FILE -->
     <script src="script.js"></script>
-    <!-- Google tag JS -->
+    <!-- Google script tags -->
     <script
       async
       type="module"
@@ -129,6 +129,17 @@
       gtag("js", new Date());
 
       gtag("config", "G-T64GNXDNBG");
+    </script>
+    <!-- SERVICE WORKER  -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("service-worker.js", {
+            scope: "/5146-PWA/",
+          })
+          .then((reg) => console.log("Service Worker Registered"))
+          .catch((err) => console.error("Service Worker Error:", err));
+      }
     </script>
   </body>
 </html>
