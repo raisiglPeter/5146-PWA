@@ -87,26 +87,7 @@ async function loadRecipes() {
   data.forEach((doc) => {
     recipes.push({ id: doc.id, ...doc.data() });
   });
-  renderRecipes(recipes);
-}
-
-// service worker
-const sw = new URL("/service-worker.js", import.meta.url);
-if ("serviceWorker" in navigator) {
-  console.log("service worker exists");
-  const s = navigator.serviceWorker;
-  s.register(sw.href, {
-    scope: "/5146-PWA/",
-  })
-    .then(() =>
-      console.log(
-        "Service Worker Registered for scope:",
-        sw.href,
-        "with",
-        import.meta.url
-      )
-    )
-    .catch((err) => console.error("Service Worker Error:", err));
+  // FIXME: not defined:  renderRecipes(recipes);
 }
 
 // adding HTML elements and event listeners on load
