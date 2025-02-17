@@ -78,6 +78,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// FIRESTORE
 async function loadRecipes() {
   const data = await getDocs(collection(db, "recipes"));
   const recipes = [];
@@ -143,6 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
     recipeListDiv.innerHTML = "";
     recipes.forEach((recipe, index) => {
       const recipeCard = document.createElement("div");
+      const editButton = recipeCard.querySelector(".edit-btn");
+      const deleteButton = recipeCard.querySelector(".delete-btn");
       recipeCard.classList.add("recipe-card");
 
       recipeCard.innerHTML = `
@@ -161,9 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <button class="button recipe-button delete-btn">Delete</button>
           </div>
         `;
-
-      const editButton = recipeCard.querySelector(".edit-btn");
-      const deleteButton = recipeCard.querySelector(".delete-btn");
 
       editButton.addEventListener("click", () => {
         document.getElementById("recipe-title").value = recipe.title;
@@ -200,6 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // MODAL BUTTONS
   addStepButton.addEventListener("click", () => {
     const stepValue = stepInput.value.trim();
     if (stepValue !== "") {
@@ -210,7 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
       stepInput.value = "";
     }
   });
-
   addTagButton.addEventListener("click", () => {
     const tagValue = tagInput.value.trim();
     if (tagValue !== "") {
@@ -221,7 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
       tagInput.value = "";
     }
   });
-
   resetButton.addEventListener("click", () => {
     document
       .querySelectorAll(".recipe-input")
