@@ -10,6 +10,7 @@ export default [
       "no-undef": "warn",
     },
     files: ["*.js"],
+    ignores: ["docs/**", "node_modules/**"],
   },
   pluginJs.configs.recommended,
 ];
