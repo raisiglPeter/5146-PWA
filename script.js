@@ -20,19 +20,23 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+let recipeList = [];
+
 // FIRESTORE
 async function loadRecipes() {
   const data = await getDocs(collection(db, "recipes"));
-  const recipes = [];
+  recipeList = [];
   data.forEach((doc) => {
-    recipes.push({ id: doc.id, ...doc.data() });
+    recipeList.push({ id: doc.id, ...doc.data() });
   });
-  renderRecipes(recipes);
+  renderRecipes(recipeList);
 }
 
 // render recipes HTML
 function renderRecipes(recipes) {
+  const recipeListDiv = document.querySelector(".recipe-list");
   recipeListDiv.innerHTML = "";
+
   recipes.forEach((recipe, index) => {
     const recipeCard = document.createElement("div");
     const editButton = recipeCard.querySelector(".edit-btn");
@@ -81,9 +85,9 @@ function renderRecipes(recipes) {
       showModalButton.style.backgroundColor = "#f49cbb";
     });
 
-    deleteButton.addEventListener("click", () => {
-      recipeList.splice(index, 1);
-      renderRecipes(recipeList);
+    deleteButton.addEventListener("click", async () => {
+      await deleteDoc(doc(db, "recipes", recipe.id));
+      loadRecipes();
     });
 
     recipeListDiv.appendChild(recipeCard);
@@ -94,7 +98,6 @@ function renderRecipes(recipes) {
 document.addEventListener("DOMContentLoaded", () => {
   loadRecipes();
 
-  const recipeListDiv = document.querySelector(".recipe-list");
   const stepInput = document.getElementById("recipe-steps");
   const addStepButton = document.querySelector(".recipe-step-button");
   const stepsPreview = document.querySelector(".steps-preview ol");
@@ -197,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
   homeButton.addEventListener("click", () => {
     addModal.style.display = "none";
     showModalButton.style.backgroundColor = "#f4f4f4";
-    renderRecipes(recipeList); // Render full recipe list
+    renderRecipes(recipeList);
   });
   // Favourite button event listener
   favouriteButton.addEventListener("click", () => {
