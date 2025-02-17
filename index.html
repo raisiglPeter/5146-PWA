@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b5c60" />
+    <meta name="theme-color" content="#ca7df9" />
     <title>Recipe App</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="manifest.json" />
+
     <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
   </head>
   <body>
@@ -17,41 +18,99 @@
         <p>by Petr Raisigl</p>
         <p>for INFO-5146</p>
       </div>
-      <ul class="navigation-container">
-        <li>Add</li>
-        <li>Home</li>
-        <li>Favourite</li>
-      </ul>
+      <nav class="navigation-container">
+        <button class="nav-link-button" id="show-modal-button">Add</button>
+        <button class="nav-link-button" id="home-button">Home</button>
+        <button class="nav-link-button" id="favourite-button">Favourite</button>
+      </nav>
     </header>
 
-    <!-- NEW RECIPE INPUT  -->
-    <div class="add-container">
-      <label for="recipeInput"><h2>Add Recipe</h2></label>
-      <input
-        name="recipeInput"
-        type="text"
-        id="recipeInput"
-        placeholder="Enter Recipe Title"
-      />
-      <button id="addRecipeButton">Add Recipe</button>
-    </div>
-
-    <!-- RECIPE LIST  -->
-    <div class="recipe-list-container">
-      <ul id="recipeList">
-        <!-- <li id="DKmDtp8xA6LCFxFZlbpC" class="ingredient-container">
-          <h3>Poutine</h3>
-          <ol>
-            <li>Potatoes</li>
-          </ol>
-        </li>
-        <li id="MlT7swU8Tm6zQSDiXSP6">this is a test of firestore 2</li> -->
-      </ul>
-    </div>
+    <main>
+      <!-- ADD RECIPE MODAL  -->
+      <div class="add-modal">
+        <div class="add-modal-div">
+          <label for="recipe-title" class="recipe-label">
+            Recipe Title
+            <input
+              class="recipe-input"
+              name="recipe-title"
+              type="text"
+              id="recipe-title"
+            />
+          </label>
+        </div>
+        <div class="add-modal-div">
+          <label for="recipe-description" class="recipe-label">
+            Recipe Description
+            <textarea
+              class="recipe-input"
+              name="recipe-description"
+              id="recipe-description"
+            ></textarea>
+          </label>
+        </div>
+        <!-- ADD RECIPE STEPS -->
+        <div class="add-modal-div add-step-div">
+          <div class="recipe-steps-container">
+            <label for="recipe-steps" class="recipe-label recipe-step-label">
+              Recipe Steps
+              <input
+                class="recipe-input"
+                name="recipe-steps"
+                type="text"
+                id="recipe-steps"
+              />
+            </label>
+            <button class="button recipe-step-button">Add Step</button>
+          </div>
+          <div class="steps-preview">
+            <ol style="list-style: decimal"></ol>
+          </div>
+        </div>
+        <div class="add-modal-div add-tag-div">
+          <div class="recipe-tags-container">
+            <label for="recipe-tags" class="recipe-label recipe-tag-label">
+              Recipe Tags
+              <input
+                class="recipe-input"
+                name="recipe-tags"
+                type="text"
+                id="recipe-tags"
+              />
+            </label>
+            <button class="button recipe-tag-button">Add Tag</button>
+          </div>
+          <div class="tags-preview"><p></p></div>
+        </div>
+        <div class="add-modal-div add-modal-flex-end">
+          <label for="recipe-favourite" class="recipe-input-checkbox">
+            Favourite:
+            <input
+              type="checkbox"
+              name="recipe-favourite"
+              id="recipe-favourite"
+            />
+          </label>
+        </div>
+        <div class="add-modal-div add-modal-flex-end">
+          <div class="modal-add-buttons">
+            <button class="button add-modal-button" id="add-modal-reset-button">
+              Reset
+            </button>
+            <button class="button add-modal-button" id="submit-recipe">
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- FIXME: <div class="tag-filter" id="tag-filter"></div> -->
+      <!-- RECIPE LIST  -->
+      <div class="recipe-list"></div>
+    </main>
 
     <!-- MAIN JS FILE -->
-    <script src="app.js" type="module"></script>
-    <!-- Google tag JS -->
+    <script src="script.js"></script>
+    <!-- Google script tags -->
     <script
       async
       type="module"
@@ -71,5 +130,7 @@
 
       gtag("config", "G-T64GNXDNBG");
     </script>
+    <!-- SERVICE WORKER  -->
+    <script type="module" src="service-worker.js"></script>
   </body>
 </html>

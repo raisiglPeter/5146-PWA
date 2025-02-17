@@ -1,32 +1,35 @@
-const CACHE_NAME = "to-do-pwa-cache-v1";
+const CACHE_NAME = "my-recipe-organizer";
 const FILES_TO_CACHE = [
   "/5146-PWA/",
   "/5146-PWA/index.html",
   "/5146-PWA/style.css",
-  "/5146-PWA/app.js",
+  "/5146-PWA/script.js",
   "/5146-PWA/manifest.json",
   "/5146-PWA/icons/icon-128.png",
   "/5146-PWA/icons/icon-512.png",
 ];
 
+// service worker
+const sw = new URL("service-worker.js", import.meta.url);
+if ("serviceWorker" in navigator) {
+  const s = navigator.serviceWorker;
+  s.register(sw.href, {
+    scope: "/5146-PWA/",
+  })
+    .then(() =>
+      console.log(
+        "Service Worker Registered for scope:",
+        sw.href,
+        "with",
+        import.meta.url
+      )
+    )
+    .catch((err) => console.error("Service Worker Error:", err));
+}
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then((cache) => {
-        console.log("Opened cache:", CACHE_NAME);
-        cache
-          .addAll(FILES_TO_CACHE)
-          .then(() => {
-            console.log("Caching files:", FILES_TO_CACHE);
-          })
-          .catch((error) => {
-            console.error("Failed to cache files:", error);
-          });
-      })
-      .catch((error) => {
-        console.error("Failed to open cache:", error);
-      })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(FILES_TO_CACHE))
   );
 });
 
