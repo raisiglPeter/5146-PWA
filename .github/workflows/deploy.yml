@@ -1,4 +1,4 @@
-name: Deploy Vanilla JavaScript PWA Checklist App
+name: JavaScript PWA Recipe App
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      APP_NAME: "PWA Checklist App"
+      APP_NAME: "PWA Recipt App"
 
     steps:
       - name: Checkout repository
