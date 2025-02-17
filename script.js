@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // service worker
-const sw = new URL("/service-worker.js", import.meta.url);
+const sw = new URL("./service-worker.js", location.origin);
 if ("serviceWorker" in navigator) {
   const s = navigator.serviceWorker;
   s.register(sw.href, {
