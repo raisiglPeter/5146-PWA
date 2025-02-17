@@ -11,7 +11,7 @@ const FILES_TO_CACHE = [
 ];
 
 // service worker
-// console.log(new URL("/5146-PWA/service-worker.js", import.meta.url).href);
+console.log(import.meta.url);
 const sw = new URL("/service-worker.js", import.meta.url).href;
 if ("serviceWorker" in navigator) {
   const s = navigator.serviceWorker;
