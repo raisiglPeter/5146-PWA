@@ -10,21 +10,18 @@ const FILES_TO_CACHE = [
 ];
 
 // service worker
-const sw = new URL("/service-worker.js", import.meta.url);
+const sw = "/service-worker.js";
 if ("serviceWorker" in navigator) {
   const s = navigator.serviceWorker;
-  s.register(sw.href, {
+  s.register(sw, {
     scope: "/5146-PWA/",
   })
-    .then(() =>
-      console.log(
-        "Service Worker Registered for scope:",
-        sw.href,
-        "with",
-        import.meta.url
-      )
+    .then((registration) =>
+      console.log("Service Worker registered:", registration)
     )
-    .catch((err) => console.error("Service Worker Error:", err));
+    .catch((error) =>
+      console.error("Service Worker registration failed:", error)
+    );
 }
 
 self.addEventListener("install", (event) => {
