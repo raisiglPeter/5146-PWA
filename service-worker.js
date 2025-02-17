@@ -2,6 +2,7 @@ const CACHE_NAME = "my-recipe-organizer";
 const FILES_TO_CACHE = [
   "/5146-PWA/",
   "/5146-PWA/index.html",
+  "/5146-PWA/service-worker.js",
   "/5146-PWA/style.css",
   "/5146-PWA/script.js",
   "/5146-PWA/manifest.json",
@@ -10,12 +11,12 @@ const FILES_TO_CACHE = [
 ];
 
 // service worker
-console.log(new URL("/5146-PWA/service-worker.js", import.meta.url).href);
-const sw = new URL("/5146-PWA/service-worker.js", import.meta.url).href;
+// console.log(new URL("/5146-PWA/service-worker.js", import.meta.url).href);
+const sw = new URL("/service-worker.js", import.meta.url).href;
 if ("serviceWorker" in navigator) {
   const s = navigator.serviceWorker;
   s.register(sw, {
-    scope: "/5146-PWA/",
+    scope: "/",
   })
     .then(() =>
       console.log(
