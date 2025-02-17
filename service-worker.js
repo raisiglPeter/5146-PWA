@@ -10,7 +10,7 @@ const FILES_TO_CACHE = [
 ];
 
 // service worker
-const sw = "/service-worker.js";
+const sw = "/5146-PWA/service-worker.js";
 if ("serviceWorker" in navigator) {
   const s = navigator.serviceWorker;
   s.register(sw, {
