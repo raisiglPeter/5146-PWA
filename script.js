@@ -32,6 +32,7 @@ const addModal = document.querySelector(".add-modal");
 const addRecipeButton = document.getElementById("submit-recipe");
 const homeButton = document.getElementById("home-button");
 const favouriteButton = document.getElementById("favourite-button");
+const recipeListDiv = document.querySelector(".recipe-list");
 
 let recipeList = [];
 const tagMemory = [];
@@ -49,7 +50,6 @@ async function loadRecipes() {
 
 // render recipes HTML
 function renderRecipes(recipes) {
-  const recipeListDiv = document.querySelector(".recipe-list");
   recipeListDiv.innerHTML = "";
 
   recipes.forEach((recipe) => {
