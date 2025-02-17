@@ -58,8 +58,14 @@ const recipeList = [
 
 // firebase
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyBCdNAkePR48BW0AdSOONp7sOfIirYdRv0",
   authDomain: "pwa-5719b.firebaseapp.com",
@@ -70,7 +76,17 @@ const firebaseConfig = {
   measurementId: "G-1NPPL3P4HF",
 };
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
+const db = getFirestore(app);
+
+async function loadRecipes() {
+  const data = await getDocs(collection(db, "recipes"));
+  const recipes = [];
+  data.forEach((doc) => {
+    recipes.push({ id: doc.id, ...doc.data() });
+  });
+  recipeList = recipes;
+  renderRecipes(recipes);
+}
 
 // service worker
 const sw = new URL("service-worker.js", import.meta.url);
@@ -90,8 +106,10 @@ if ("serviceWorker" in navigator) {
     .catch((err) => console.error("Service Worker Error:", err));
 }
 
-// adding HTML elements
+// adding HTML elements and event listeners on load
 document.addEventListener("DOMContentLoaded", () => {
+  loadRecipes();
+
   const recipeListDiv = document.querySelector(".recipe-list");
   const stepInput = document.getElementById("recipe-steps");
   const addStepButton = document.querySelector(".recipe-step-button");
@@ -215,7 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tagsPreview.textContent = "";
   });
 
-  addRecipeButton.addEventListener("click", () => {
+  addRecipeButton.addEventListener("click", async () => {
     // getting values from title, description and favourite checkbox
     const title = document.getElementById("recipe-title").value.trim();
     const description = document
@@ -230,10 +248,15 @@ document.addEventListener("DOMContentLoaded", () => {
         steps: [...stepMemory],
         tags: [...tagMemory],
         favourite,
+        createdAt: new Date(),
       };
 
-      recipeList.push(newRecipe);
-      renderRecipes(recipeList);
+      // recipeList.push(newRecipe);
+      // renderRecipes(recipeList);
+
+      // FIRESTORE ADD RECIPE
+      await addDoc(collection(db, "recipes"), newRecipe);
+      loadRecipes();
 
       // Reset input fields after adding recipe
       resetButton.click();
