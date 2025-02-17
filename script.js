@@ -69,10 +69,9 @@ const firebaseConfig = {
   appId: "1:1077986382281:web:f1cca2531b3b05ac199818",
   measurementId: "G-1NPPL3P4HF",
 };
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);
+
 // service worker
 const sw = new URL("service-worker.js", import.meta.url);
 if ("serviceWorker" in navigator) {
