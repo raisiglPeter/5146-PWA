@@ -20,7 +20,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const stepInput = document.getElementById("recipe-steps");
+const addStepButton = document.querySelector(".recipe-step-button");
+const stepsPreview = document.querySelector(".steps-preview ol");
+const tagInput = document.getElementById("recipe-tags");
+const addTagButton = document.querySelector(".recipe-tag-button");
+const tagsPreview = document.querySelector(".tags-preview p");
+const resetButton = document.getElementById("add-modal-reset-button");
+const showModalButton = document.getElementById("show-modal-button");
+const addModal = document.querySelector(".add-modal");
+const addRecipeButton = document.getElementById("submit-recipe");
+const homeButton = document.getElementById("home-button");
+const favouriteButton = document.getElementById("favourite-button");
+
 let recipeList = [];
+const tagMemory = [];
+const stepMemory = [];
 
 // FIRESTORE
 async function loadRecipes() {
@@ -97,21 +112,6 @@ function renderRecipes(recipes) {
 // adding HTML elements and event listeners on load
 document.addEventListener("DOMContentLoaded", () => {
   loadRecipes();
-
-  const stepInput = document.getElementById("recipe-steps");
-  const addStepButton = document.querySelector(".recipe-step-button");
-  const stepsPreview = document.querySelector(".steps-preview ol");
-  const tagInput = document.getElementById("recipe-tags");
-  const addTagButton = document.querySelector(".recipe-tag-button");
-  const tagsPreview = document.querySelector(".tags-preview p");
-  const tagMemory = [];
-  const stepMemory = [];
-  const resetButton = document.getElementById("add-modal-reset-button");
-  const showModalButton = document.getElementById("show-modal-button");
-  const addModal = document.querySelector(".add-modal");
-  const addRecipeButton = document.getElementById("submit-recipe");
-  const homeButton = document.getElementById("home-button");
-  const favouriteButton = document.getElementById("favourite-button");
 
   // FIXME:
   // const tagFilter = document.getElementById("tag-filter");
