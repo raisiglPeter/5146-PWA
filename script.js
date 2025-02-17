@@ -20,6 +20,24 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// service worker
+const sw = new URL("/service-worker.js", import.meta.url);
+if ("serviceWorker" in navigator) {
+  const s = navigator.serviceWorker;
+  s.register(sw.href, {
+    scope: "/5146-PWA/",
+  })
+    .then(() =>
+      console.log(
+        "Service Worker Registered for scope:",
+        sw.href,
+        "with",
+        import.meta.url
+      )
+    )
+    .catch((err) => console.error("Service Worker Error:", err));
+}
+
 const stepInput = document.getElementById("recipe-steps");
 const addStepButton = document.querySelector(".recipe-step-button");
 const stepsPreview = document.querySelector(".steps-preview ol");
@@ -54,8 +72,7 @@ function renderRecipes(recipes) {
 
   recipes.forEach((recipe) => {
     const recipeCard = document.createElement("div");
-    const editButton = recipeCard.querySelector(".edit-btn");
-    const deleteButton = recipeCard.querySelector(".delete-btn");
+
     recipeCard.classList.add("recipe-card");
 
     recipeCard.innerHTML = `
@@ -74,6 +91,9 @@ function renderRecipes(recipes) {
             <button class="button recipe-button delete-btn">Delete</button>
           </div>
         `;
+
+    const editButton = recipeCard.querySelector(".edit-btn");
+    const deleteButton = recipeCard.querySelector(".delete-btn");
 
     editButton.addEventListener("click", () => {
       document.getElementById("recipe-title").value = recipe.title;
