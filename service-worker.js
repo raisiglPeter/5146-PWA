@@ -9,6 +9,25 @@ const FILES_TO_CACHE = [
   "/5146-PWA/icons/icon-512.png",
 ];
 
+// service worker
+const sw = new URL("service-worker.js", import.meta.url).href;
+console.log(sw);
+if ("serviceWorker" in navigator) {
+  const s = navigator.serviceWorker;
+  s.register(sw, {
+    scope: "/5146-PWA/",
+  })
+    .then(() =>
+      console.log(
+        "Service Worker Registered for scope:",
+        sw.href,
+        "with",
+        import.meta.url
+      )
+    )
+    .catch((err) => console.error("Service Worker Error:", err));
+}
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(FILES_TO_CACHE))

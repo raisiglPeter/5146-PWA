@@ -20,24 +20,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// service worker
-const sw = new URL("service-worker.js", location.origin + "/5146-PWA/");
-if ("serviceWorker" in navigator) {
-  const s = navigator.serviceWorker;
-  s.register(sw.href, {
-    scope: "/5146-PWA/",
-  })
-    .then(() =>
-      console.log(
-        "Service Worker Registered for scope:",
-        sw.href,
-        "with",
-        import.meta.url
-      )
-    )
-    .catch((err) => console.error("Service Worker Error:", err));
-}
-
 const stepInput = document.getElementById("recipe-steps");
 const addStepButton = document.querySelector(".recipe-step-button");
 const stepsPreview = document.querySelector(".steps-preview ol");
@@ -53,8 +35,8 @@ const favouriteButton = document.getElementById("favourite-button");
 const recipeListDiv = document.querySelector(".recipe-list");
 
 let recipeList = [];
-const tagMemory = [];
-const stepMemory = [];
+let tagMemory = [];
+let stepMemory = [];
 
 // FIRESTORE
 async function loadRecipes() {
@@ -191,9 +173,6 @@ document.addEventListener("DOMContentLoaded", () => {
         createdAt: new Date(),
       };
 
-      // recipeList.push(newRecipe);
-      // renderRecipes(recipeList);
-
       // FIRESTORE ADD RECIPE
       await addDoc(collection(db, "recipes"), newRecipe);
       loadRecipes();
@@ -202,6 +181,8 @@ document.addEventListener("DOMContentLoaded", () => {
       resetButton.click();
       addModal.style.display = "none";
       showModalButton.style.backgroundColor = "#f4f4f4";
+      tagMemory = [];
+      stepMemory = [];
     }
   });
 
