@@ -89,8 +89,9 @@ async function loadRecipes() {
 }
 
 // service worker
-const sw = new URL("service-worker.js", import.meta.url);
+const sw = new URL("/service-worker.js", import.meta.url);
 if ("serviceWorker" in navigator) {
+  console.log("service worker exists");
   const s = navigator.serviceWorker;
   s.register(sw.href, {
     scope: "/5146-PWA/",
@@ -230,7 +231,6 @@ document.addEventListener("DOMContentLoaded", () => {
     tagMemory.length = 0;
     tagsPreview.textContent = "";
   });
-
   addRecipeButton.addEventListener("click", async () => {
     // getting values from title, description and favourite checkbox
     const title = document.getElementById("recipe-title").value.trim();
@@ -263,6 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // NAVIGATION BUTTONS
   // Show/hide modal and change button color
   showModalButton.addEventListener("click", () => {
     if (addModal.style.display === "none" || addModal.style.display === "") {
@@ -273,14 +274,12 @@ document.addEventListener("DOMContentLoaded", () => {
       showModalButton.style.backgroundColor = "#f4f4f4";
     }
   });
-
   // home button
   homeButton.addEventListener("click", () => {
     addModal.style.display = "none";
     showModalButton.style.backgroundColor = "#f4f4f4";
     renderRecipes(recipeList); // Render full recipe list
   });
-
   // Favourite button event listener
   favouriteButton.addEventListener("click", () => {
     const favouriteRecipes = recipeList.filter((recipe) => recipe.favourite);
