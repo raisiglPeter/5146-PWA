@@ -56,6 +56,8 @@ const recipeList = [
   },
 ];
 
+console.log("script run");
+
 // firebase
 import { initializeApp } from "firebase/app";
 import {
