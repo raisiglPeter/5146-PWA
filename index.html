@@ -6,7 +6,6 @@
     <meta name="theme-color" content="#ca7df9" />
     <title>Recipe App</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="manifest" href="manifest.json" />
 
     <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
   </head>
@@ -82,16 +81,15 @@
           </div>
           <div class="tags-preview"><p></p></div>
         </div>
-        <div class="add-modal-div add-modal-flex-end">
-          <label for="recipe-favourite" class="recipe-input-checkbox">
-            Favourite:
-            <input
-              class="recipe-input"
-              type="checkbox"
-              name="recipe-favourite"
-              id="recipe-favourite"
-            />
-          </label>
+        <div
+          class="add-modal-div add-modal-flex-end favourite-checkbox-container"
+        >
+          <label for="recipe-favourite"> Favourite: </label>
+          <input
+            type="checkbox"
+            name="recipe-favourite"
+            id="recipe-favourite"
+          />
         </div>
         <div class="add-modal-div add-modal-flex-end">
           <div class="modal-add-buttons">
@@ -104,13 +102,23 @@
           </div>
         </div>
       </div>
+
+      <!-- CHATBOT DIV -->
+      <div id="chatbot-container">
+        <div id="chat-history"></div>
+        <input type="text" id="chat-input" />
+        <div class="chatbot-buttons">
+          <button id="send-btn" class="chat-button">Send</button>
+          <button id="close-chat-btn" class="chat-button">Close</button>
+        </div>
+      </div>
       <!-- FIXME: <div class="tag-filter" id="tag-filter"></div> -->
       <!-- RECIPE LIST  -->
       <div class="recipe-list"></div>
     </main>
 
     <!-- MAIN JS FILE -->
-    <script type="module" src="./script.js"></script>
+    <script type="module" src="/js/script.js"></script>
     <!-- Google script tags -->
     <script
       async

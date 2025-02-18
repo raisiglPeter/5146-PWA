@@ -84,8 +84,6 @@ header {
 .nav-link-button:hover {
   color: var(--bright-pink-crayola);
 }
-#favourite-button {
-}
 
 /* MAIN CONTENT  */
 main {
@@ -173,6 +171,7 @@ main {
 }
 .recipe-favourite {
   padding: 0.5rem 0;
+  flex: 0.1;
 }
 
 /* TAG FILTER  */
@@ -185,7 +184,9 @@ main {
   margin: auto;
   padding-left: 1rem;
 }
-.filter-button {
+
+/* FIXME:  */
+/* .filter-button {
   border: 0;
   border-radius: 1rem;
   padding: 0.3rem 0.5rem;
@@ -193,7 +194,7 @@ main {
 }
 .filter-button:hover {
   color: var(--bright-pink-crayola);
-}
+} */
 
 /* RECIPE LIST  */
 .recipe-list {
@@ -272,4 +273,66 @@ main {
   .recipe-card {
     max-width: 750px;
   }
+}
+
+/* CHATBOT WINDOW  */
+#chatbot-container {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+}
+#chat-history {
+  height: 200px;
+  overflow-y: auto;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 100%;
+}
+#chat-input {
+  width: calc(100% - 60px);
+  padding: 5px;
+  margin-right: 5px;
+  border-radius: 0.5rem;
+  border: var(--bright-pink-crayola) 1px solid;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.history {
+  padding-bottom: 15px;
+}
+.chatbot-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+#send-btn {
+  width: 90%;
+  display: none;
+}
+#close-chat-btn {
+  width: 90%;
+}
+.chat-button {
+  font-size: medium;
+  font-weight: 500;
+  font-family: "Courier New", Courier, monospace;
+  color: var(--black);
+  border: 0;
+  background-color: var(--white-smoke);
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
 }
