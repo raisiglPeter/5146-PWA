@@ -1,4 +1,4 @@
-import { loadRecipes, addRecipe, deleteRecipe } from "./firestore.js";
+import { loadRecipes, deleteRecipe } from "./firestore.js";
 
 const recipeListDiv = document.querySelector(".recipe-list");
 

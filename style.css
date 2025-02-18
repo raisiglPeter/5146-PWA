@@ -184,7 +184,9 @@ main {
   margin: auto;
   padding-left: 1rem;
 }
-.filter-button {
+
+/* FIXME:  */
+/* .filter-button {
   border: 0;
   border-radius: 1rem;
   padding: 0.3rem 0.5rem;
@@ -192,7 +194,7 @@ main {
 }
 .filter-button:hover {
   color: var(--bright-pink-crayola);
-}
+} */
 
 /* RECIPE LIST  */
 .recipe-list {
@@ -275,7 +277,7 @@ main {
 
 /* CHATBOT WINDOW  */
 #chatbot-container {
-  width: auto;
+  width: 300px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -290,8 +292,6 @@ main {
   border-radius: 1rem;
 }
 #chat-history {
-  display: none;
-
   height: 200px;
   overflow-y: auto;
   border-bottom: 1px solid #ccc;
@@ -300,8 +300,6 @@ main {
   width: 100%;
 }
 #chat-input {
-  display: none;
-
   width: calc(100% - 60px);
   padding: 5px;
   margin-right: 5px;
@@ -312,9 +310,6 @@ main {
 }
 .history {
   padding-bottom: 15px;
-}
-.chat-closed {
-  display: none;
 }
 .chatbot-buttons {
   width: 100%;
@@ -329,4 +324,15 @@ main {
 }
 #close-chat-btn {
   width: 90%;
+}
+.chat-button {
+  font-size: medium;
+  font-weight: 500;
+  font-family: "Courier New", Courier, monospace;
+  color: var(--black);
+  border: 0;
+  background-color: var(--white-smoke);
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
 }
