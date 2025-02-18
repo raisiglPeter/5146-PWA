@@ -206,8 +206,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // Favourite button event listener
   favouriteButton.addEventListener("click", () => {
     const favouriteRecipes = recipeList.filter((recipe) => recipe.favourite);
-    renderRecipes(favouriteRecipes); // Render only favourite recipes
+    renderRecipes(favouriteRecipes);
   });
 
-  renderRecipes(recipeList); // Initial render
+  renderRecipes(recipeList);
 });
+
+import swUrl from "./service-worker.js"; // Parcel will replace with hashed filename
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register(swUrl, { scope: "/5146-PWA/" })
+    .then(() => console.log("Service Worker Registered:", swUrl))
+    .catch((err) => console.error("Service Worker Error:", swUrl, err));
+}
