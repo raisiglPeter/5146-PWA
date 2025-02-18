@@ -38,6 +38,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         await addRecipe(newRecipe);
         renderRecipes();
+
+        // Close the modal and reset form after adding a recipe
+        resetModal();
+        closeModal();
       }
     });
+});
+
+document.getElementById("show-modal-button").addEventListener("click", () => {
+  const addModal = document.querySelector(".add-modal");
+  if (addModal.style.display === "none" || addModal.style.display === "") {
+    addModal.style.display = "flex";
+    document.getElementById("show-modal-button").style.backgroundColor =
+      "#f49cbb";
+  } else {
+    addModal.style.display = "none";
+    document.getElementById("show-modal-button").style.backgroundColor =
+      "#f4f4f4";
+  }
 });
