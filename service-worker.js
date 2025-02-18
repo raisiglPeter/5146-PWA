@@ -12,11 +12,11 @@ const FILES_TO_CACHE = [
 
 // service worker
 console.log(import.meta.url);
-const sw = new URL("/service-worker.js", import.meta.url).href;
+const sw = new URL("service-worker.js").href;
 if ("serviceWorker" in navigator) {
   const s = navigator.serviceWorker;
   s.register(sw, {
-    scope: "/",
+    scope: "/5146-PWA/",
   })
     .then(() =>
       console.log(
