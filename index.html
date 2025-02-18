@@ -82,16 +82,15 @@
           </div>
           <div class="tags-preview"><p></p></div>
         </div>
-        <div class="add-modal-div add-modal-flex-end">
-          <label for="recipe-favourite" class="recipe-input-checkbox">
-            Favourite:
-            <input
-              class="recipe-input"
-              type="checkbox"
-              name="recipe-favourite"
-              id="recipe-favourite"
-            />
-          </label>
+        <div
+          class="add-modal-div add-modal-flex-end favourite-checkbox-container"
+        >
+          <label for="recipe-favourite"> Favourite: </label>
+          <input
+            type="checkbox"
+            name="recipe-favourite"
+            id="recipe-favourite"
+          />
         </div>
         <div class="add-modal-div add-modal-flex-end">
           <div class="modal-add-buttons">
@@ -104,11 +103,12 @@
           </div>
         </div>
       </div>
+
       <!-- CHATBOT DIV -->
       <div id="chatbot-container">
         <div id="chat-history"></div>
         <input type="text" id="chat-input" />
-        <button id="send-btn">Send</button>
+        <button id="send-btn" class="button">Send</button>
       </div>
       <!-- FIXME: <div class="tag-filter" id="tag-filter"></div> -->
       <!-- RECIPE LIST  -->
