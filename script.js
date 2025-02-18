@@ -34,6 +34,7 @@ const homeButton = document.getElementById("home-button");
 const favouriteButton = document.getElementById("favourite-button");
 const recipeListDiv = document.querySelector(".recipe-list");
 
+// temporary memory
 let recipeList = [];
 let tagMemory = [];
 let stepMemory = [];
@@ -163,6 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .value.trim();
     const favourite = document.getElementById("recipe-favourite").checked;
 
+    // check input and create new recipe object
     if (title && description) {
       const newRecipe = {
         title,
