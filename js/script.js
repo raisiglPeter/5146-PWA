@@ -42,6 +42,8 @@ const recipeListDiv = document.querySelector(".recipe-list");
 const chatHistory = document.getElementById("chat-history");
 const chatInput = document.getElementById("chat-input");
 const sendBtn = document.getElementById("send-btn");
+const closeAI = document.getElementById("close-chat-btn");
+const chatbotButtons = document.querySelector(".chatbot-buttons");
 
 // temporary memory
 let recipeList = [];
@@ -327,6 +329,24 @@ document.addEventListener("DOMContentLoaded", async () => {
   favouriteButton.addEventListener("click", () => {
     const favouriteRecipes = recipeList.filter((recipe) => recipe.favourite);
     renderRecipes(favouriteRecipes);
+  });
+
+  // CHATBOT BUTTONS
+  // Default closed state
+  chatHistory.style.display = "none";
+  chatInput.style.display = "none";
+  sendBtn.style.display = "none";
+  closeAI.innerText = "AI Chat";
+  chatbotButtons.style.justifyContent = "center";
+  // open / close AI chat window
+  closeAI.addEventListener("click", () => {
+    const isClosed = chatHistory.style.display === "none";
+
+    chatHistory.style.display = isClosed ? "block" : "none";
+    chatInput.style.display = isClosed ? "block" : "none";
+    sendBtn.style.display = isClosed ? "block" : "none";
+    closeAI.innerText = isClosed ? "Close" : "AI Chat";
+    chatbotButtons.style.justifyContent = isClosed ? "space-between" : "center";
   });
 
   renderRecipes(recipeList);
