@@ -95,47 +95,20 @@ function renderRecipes(recipes) {
       document.getElementById("recipe-description").value = recipe.description;
       document.getElementById("recipe-favourite").checked = recipe.favourite;
 
-      // Getting steps and tags
-      stepMemory = [...recipe.steps];
-      tagMemory = [...recipe.tags];
+      // getting steps and tags
+      const tempSteps = [...recipe.steps];
+      const tempTags = [...recipe.tags];
 
-      // Steps preview with delete buttons
-      stepsPreview.innerHTML = stepMemory
-        .map(
-          (step, index) => `
-          <li>
-              ${step} 
-              <button class="delete-step-btn" data-step-index="${index}">X</button>
-          </li>
-      `
-        )
+      // steps preview
+      stepsPreview.innerHTML = tempSteps
+        .map((step) => `<li>${step}</li>`)
         .join("");
 
-      // Tags preview
-      tagsPreview.textContent = tagMemory.join(", ");
+      // tags preview
+      tagsPreview.textContent = tempTags.join(", ");
 
       addModal.style.display = "flex";
       showModalButton.style.backgroundColor = "#f49cbb";
-
-      // Event listener for deleting steps (using event delegation)
-      stepsPreview.addEventListener("click", (event) => {
-        if (event.target.classList.contains("delete-step-btn")) {
-          const stepIndex = event.target.dataset.stepIndex;
-          stepMemory.splice(stepIndex, 1);
-
-          // Update stepsPreview (you can re-render the whole thing or just remove the specific <li>)
-          stepsPreview.innerHTML = stepMemory
-            .map(
-              (step, index) => `
-                  <li>
-                      ${step} 
-                      <button class="delete-step-btn" data-step-index="${index}">X</button>
-                  </li>
-              `
-            )
-            .join("");
-        }
-      });
     });
 
     deleteButton.addEventListener("click", async () => {
@@ -147,7 +120,7 @@ function renderRecipes(recipes) {
   });
 }
 
-// FIXME: AI code
+// AI code
 async function getApiKey() {
   let snapshot = await getDoc(doc(db, "apikey", "googlegenai"));
   apiKey = snapshot.data().key;
@@ -164,8 +137,7 @@ async function askChatBot(request) {
     console.error(error);
   }
 }
-
-// Function to handle chatbot commands
+// function to handle chatbot commands
 function ruleChatBot(request) {
   if (request.startsWith("add recipe")) {
     let recipeDetails = request.replace("add recipe", "").trim();
@@ -205,7 +177,7 @@ function ruleChatBot(request) {
 
   return false;
 }
-// Function to display chatbot messages
+// display chatbot messages
 function appendMessage(message) {
   let history = document.createElement("div");
   history.textContent = message;
@@ -213,12 +185,12 @@ function appendMessage(message) {
   chatHistory.appendChild(history);
   chatInput.value = "";
 }
-
+// adding a recipe with AI
 async function addRecipeFromChat(title, description) {
   const newRecipe = {
     title,
     description,
-    steps: [], // Empty by default, can be modified later
+    steps: [],
     tags: [],
     favourite: false,
     createdAt: new Date().toISOString(),
@@ -227,10 +199,9 @@ async function addRecipeFromChat(title, description) {
   await addDoc(collection(db, "recipes"), newRecipe);
   loadRecipes();
 }
-
+// remove recipe from AI chat
 async function deleteRecipeFromChat(title) {
   let found = false;
-
   for (let recipe of recipeList) {
     if (recipe.title.toLowerCase() === title.toLowerCase()) {
       await deleteDoc(doc(db, "recipes", recipe.id));
@@ -238,7 +209,6 @@ async function deleteRecipeFromChat(title) {
       break;
     }
   }
-
   if (found) {
     appendMessage(`Recipe "${title}" deleted.`);
     loadRecipes();
@@ -263,16 +233,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       appendMessage("Please enter a prompt");
     }
   });
-
-  // FIXME:
-  // const tagFilter = document.getElementById("tag-filter");
-  // render all tags
-  // tagFilter.innerHTML =
-  //   `Filter: ` +
-  //   recipeList
-  //     .flatMap((recipe) => recipe.tags)
-  //     .map((tag) => `<button class="filter-button">${tag}</button>`)
-  //     .join("");
 
   // MODAL BUTTONS
   addStepButton.addEventListener("click", () => {
@@ -360,7 +320,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // CHATBOT BUTTONS
-  // Default closed state
+  // default state
   chatHistory.style.display = "none";
   chatInput.style.display = "none";
   sendBtn.style.display = "none";
