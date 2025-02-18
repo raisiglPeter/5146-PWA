@@ -11,22 +11,12 @@ const FILES_TO_CACHE = [
 ];
 
 // service worker
-console.log(import.meta.url);
-const sw = new URL("service-worker.js").href;
+const sw = new URL("./service-worker.js", import.meta.url).href;
 if ("serviceWorker" in navigator) {
-  const s = navigator.serviceWorker;
-  s.register(sw, {
-    scope: "/5146-PWA/",
-  })
-    .then(() =>
-      console.log(
-        "Service Worker Registered for scope:",
-        sw.href,
-        "with",
-        import.meta.url
-      )
-    )
-    .catch((err) => console.error("Service Worker Error:", err));
+  navigator.serviceWorker
+    .register(sw, { scope: "/5146-PWA/" })
+    .then(() => console.log("Service Worker Registered for scope:", sw))
+    .catch((err) => console.error("Service Worker Error:", sw, err));
 }
 
 self.addEventListener("install", (event) => {
