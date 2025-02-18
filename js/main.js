@@ -1,6 +1,7 @@
 import { renderRecipes } from "./ui.js";
 import { initializeAI, askChatBot } from "./chatbot.js";
 import { addRecipe } from "./firestore.js";
+import { openModal, closeModal, resetModal } from "./modal.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   await renderRecipes();
