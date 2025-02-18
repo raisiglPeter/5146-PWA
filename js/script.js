@@ -44,6 +44,7 @@ const chatInput = document.getElementById("chat-input");
 const sendBtn = document.getElementById("send-btn");
 const closeAI = document.getElementById("close-chat-btn");
 const chatbotButtons = document.querySelector(".chatbot-buttons");
+const chatbotContainer = document.getElementById("chatbot-container");
 
 // temporary memory
 let recipeList = [];
@@ -338,10 +339,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   sendBtn.style.display = "none";
   closeAI.innerText = "AI Chat";
   chatbotButtons.style.justifyContent = "center";
+  chatbotContainer.style.width = "auto";
+
   // open / close AI chat window
   closeAI.addEventListener("click", () => {
     const isClosed = chatHistory.style.display === "none";
 
+    chatbotContainer.style.width = isClosed ? "300px" : "auto";
     chatHistory.style.display = isClosed ? "block" : "none";
     chatInput.style.display = isClosed ? "block" : "none";
     sendBtn.style.display = isClosed ? "block" : "none";
