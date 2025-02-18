@@ -5,6 +5,7 @@ import {
   collection,
   addDoc,
   getDocs,
+  getDoc,
   deleteDoc,
   doc,
 } from "firebase/firestore";
@@ -20,6 +21,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// AI import
+import { GoogleGenerativeAI } from "@google/generative-ai";
+let apiKey, genAI, model;
+
 const stepInput = document.getElementById("recipe-steps");
 const addStepButton = document.querySelector(".recipe-step-button");
 const stepsPreview = document.querySelector(".steps-preview ol");
@@ -33,13 +38,17 @@ const addRecipeButton = document.getElementById("submit-recipe");
 const homeButton = document.getElementById("home-button");
 const favouriteButton = document.getElementById("favourite-button");
 const recipeListDiv = document.querySelector(".recipe-list");
+// AI HTML
+const chatHistory = document.getElementById("chat-history");
+const chatInput = document.getElementById("chat-input");
+const sendBtn = document.getElementById("send-btn");
 
 // temporary memory
 let recipeList = [];
 let tagMemory = [];
 let stepMemory = [];
 
-// FIRESTORE
+// get firestore recipes
 async function loadRecipes() {
   const data = await getDocs(collection(db, "recipes"));
   recipeList = [];
@@ -83,21 +92,17 @@ function renderRecipes(recipes) {
       document.getElementById("recipe-description").value = recipe.description;
       document.getElementById("recipe-favourite").checked = recipe.favourite;
 
-      stepMemory.length = 0;
-      stepsPreview.innerHTML = "";
-      recipe.steps.forEach((step) => {
-        stepMemory.push(step);
-        const newStep = document.createElement("li");
-        newStep.textContent = step;
-        stepsPreview.appendChild(newStep);
-      });
+      // getting steps and tags
+      const tempSteps = [...recipe.steps];
+      const tempTags = [...recipe.tags];
 
-      tagMemory.length = 0;
-      tagsPreview.textContent = "";
-      recipe.tags.forEach((tag) => {
-        tagMemory.push(tag);
-      });
-      tagsPreview.textContent = tagMemory.join(", ");
+      // steps preview
+      stepsPreview.innerHTML = tempSteps
+        .map((step) => `<li>${step}</li>`)
+        .join("");
+
+      // tags preview
+      tagsPreview.textContent = tempTags.join(", ");
 
       addModal.style.display = "flex";
       showModalButton.style.backgroundColor = "#f49cbb";
@@ -112,9 +117,134 @@ function renderRecipes(recipes) {
   });
 }
 
-// adding HTML elements and event listeners on load
-document.addEventListener("DOMContentLoaded", () => {
+// FIXME: AI code
+async function getApiKey() {
+  let snapshot = await getDoc(doc(db, "apikey", "googlegenai"));
+  apiKey = snapshot.data().key;
+  genAI = new GoogleGenerativeAI(apiKey);
+  model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+}
+async function askChatBot(request) {
+  try {
+    const response = await model.generateContent(request);
+    const textResponse = response.response.text();
+    appendMessage(textResponse);
+  } catch (error) {
+    appendMessage("AI Error: Unable to process request.");
+    console.error(error);
+  }
+}
+
+// Function to handle chatbot commands
+function ruleChatBot(request) {
+  if (request.startsWith("add recipe")) {
+    let recipeDetails = request.replace("add recipe", "").trim();
+    let parts = recipeDetails.split(";");
+
+    if (parts.length < 2) {
+      appendMessage(
+        "Please specify a title and description using ';'. Example: 'add recipe Pancakes; A delicious breakfast.'"
+      );
+      return true;
+    }
+
+    let title = parts[0].trim();
+    let description = parts[1].trim();
+
+    if (title && description) {
+      addRecipeFromChat(title, description);
+      appendMessage(`Recipe "${title}" added successfully!`);
+    } else {
+      appendMessage(
+        "Invalid recipe format. Please provide both a title and description."
+      );
+    }
+
+    return true;
+  } else if (request.startsWith("delete recipe")) {
+    let title = request.replace("delete recipe", "").trim();
+
+    if (title) {
+      deleteRecipeFromChat(title);
+    } else {
+      appendMessage("Please specify the recipe title to delete.");
+    }
+
+    return true;
+  }
+
+  return false;
+}
+// Function to display chatbot messages
+function appendMessage(message) {
+  let history = document.createElement("div");
+  history.textContent = message;
+  history.className = "history";
+  chatHistory.appendChild(history);
+  chatInput.value = "";
+}
+// Function to remove tasks by name
+function removeFromTaskName(task) {
+  let ele = document.getElementsByName(task);
+  if (ele.length === 0) {
+    return false;
+  }
+  ele.forEach((e) => {
+    removeTask(e.id); // Assuming you have removeTask() defined elsewhere
+    removeVisualTask(e.id); // Assuming you have removeVisualTask() defined elsewhere
+  });
+  return true;
+}
+
+async function addRecipeFromChat(title, description) {
+  const newRecipe = {
+    title,
+    description,
+    steps: [], // Empty by default, can be modified later
+    tags: [],
+    favourite: false,
+    createdAt: new Date().toISOString(),
+  };
+
+  await addDoc(collection(db, "recipes"), newRecipe);
   loadRecipes();
+}
+
+async function deleteRecipeFromChat(title) {
+  let found = false;
+
+  for (let recipe of recipeList) {
+    if (recipe.title.toLowerCase() === title.toLowerCase()) {
+      await deleteDoc(doc(db, "recipes", recipe.id));
+      found = true;
+      break;
+    }
+  }
+
+  if (found) {
+    appendMessage(`Recipe "${title}" deleted.`);
+    loadRecipes();
+  } else {
+    appendMessage(`Recipe "${title}" not found.`);
+  }
+}
+
+// ONLOAD listeners and HTML
+document.addEventListener("DOMContentLoaded", async () => {
+  loadRecipes();
+
+  await getApiKey();
+
+  sendBtn.addEventListener("click", async () => {
+    let prompt = chatInput.value.trim().toLowerCase();
+    if (prompt) {
+      if (!ruleChatBot(prompt)) {
+        askChatBot(prompt);
+      }
+    } else {
+      appendMessage("Please enter a prompt");
+    }
+  });
 
   // FIXME:
   // const tagFilter = document.getElementById("tag-filter");
@@ -172,7 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
         steps: [...stepMemory],
         tags: [...tagMemory],
         favourite,
-        createdAt: new Date(),
+        createdAt: new Date().toISOString(),
       };
 
       // FIRESTORE ADD RECIPE
@@ -189,7 +319,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // NAVIGATION BUTTONS
-  // Show/hide modal and change button color
+  // Add - Show/hide modal and change button color
   showModalButton.addEventListener("click", () => {
     if (addModal.style.display === "none" || addModal.style.display === "") {
       addModal.style.display = "flex";
@@ -199,13 +329,13 @@ document.addEventListener("DOMContentLoaded", () => {
       showModalButton.style.backgroundColor = "#f4f4f4";
     }
   });
-  // home button
+  // Home button
   homeButton.addEventListener("click", () => {
     addModal.style.display = "none";
     showModalButton.style.backgroundColor = "#f4f4f4";
     renderRecipes(recipeList);
   });
-  // Favourite button event listener
+  // Favourite button
   favouriteButton.addEventListener("click", () => {
     const favouriteRecipes = recipeList.filter((recipe) => recipe.favourite);
     renderRecipes(favouriteRecipes);
