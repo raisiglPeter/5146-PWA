@@ -60,13 +60,13 @@ function renderRecipes(recipes) {
     recipeCard.innerHTML = `
           <h2>${recipe.title} ${recipe.favourite ? "❤️" : ""}</h2>
           <p>${recipe.description}</p>
-          <h4 class="recipe-list-h4">Steps:</h4>
+          <h3 class="recipe-list-h4">Steps:</h3>
           <ol class="ordered-list">
             ${recipe.steps
               .map((step, i) => `<li>${i + 1}. ${step}</li>`)
               .join("")}
           </ol>
-          <h5>Tags</h5>
+          <h4>Tags</h4>
           <p class="recipe-tags">${recipe.tags.join(", ")}</p>
           <div class="recipe-buttons">
             <button class="button recipe-button edit-btn">Edit</button>
@@ -212,11 +212,19 @@ document.addEventListener("DOMContentLoaded", () => {
   renderRecipes(recipeList);
 });
 
-import swUrl from "./service-worker.js"; // Parcel will replace with hashed filename
-
+const sw = new URL("service-worker.js", import.meta.url);
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register(swUrl, { scope: "/5146-PWA/" })
-    .then(() => console.log("Service Worker Registered:", swUrl))
-    .catch((err) => console.error("Service Worker Error:", swUrl, err));
+  const s = navigator.serviceWorker;
+  s.register(sw.href, {
+    scope: "/5146-PWA/",
+  })
+    .then((_) =>
+      console.log(
+        "Service Worker Registered for scope:",
+        sw.href,
+        "with",
+        import.meta.url
+      )
+    )
+    .catch((err) => console.error("Service Worker Error:", err));
 }
