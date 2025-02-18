@@ -95,20 +95,47 @@ function renderRecipes(recipes) {
       document.getElementById("recipe-description").value = recipe.description;
       document.getElementById("recipe-favourite").checked = recipe.favourite;
 
-      // getting steps and tags
-      const tempSteps = [...recipe.steps];
-      const tempTags = [...recipe.tags];
+      // Getting steps and tags
+      stepMemory = [...recipe.steps];
+      tagMemory = [...recipe.tags];
 
-      // steps preview
-      stepsPreview.innerHTML = tempSteps
-        .map((step) => `<li>${step}</li>`)
+      // Steps preview with delete buttons
+      stepsPreview.innerHTML = stepMemory
+        .map(
+          (step, index) => `
+          <li>
+              ${step} 
+              <button class="delete-step-btn" data-step-index="${index}">X</button>
+          </li>
+      `
+        )
         .join("");
 
-      // tags preview
-      tagsPreview.textContent = tempTags.join(", ");
+      // Tags preview
+      tagsPreview.textContent = tagMemory.join(", ");
 
       addModal.style.display = "flex";
       showModalButton.style.backgroundColor = "#f49cbb";
+
+      // Event listener for deleting steps (using event delegation)
+      stepsPreview.addEventListener("click", (event) => {
+        if (event.target.classList.contains("delete-step-btn")) {
+          const stepIndex = event.target.dataset.stepIndex;
+          stepMemory.splice(stepIndex, 1);
+
+          // Update stepsPreview (you can re-render the whole thing or just remove the specific <li>)
+          stepsPreview.innerHTML = stepMemory
+            .map(
+              (step, index) => `
+                  <li>
+                      ${step} 
+                      <button class="delete-step-btn" data-step-index="${index}">X</button>
+                  </li>
+              `
+            )
+            .join("");
+        }
+      });
     });
 
     deleteButton.addEventListener("click", async () => {
