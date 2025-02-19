@@ -1,2 +1,0 @@
-const e=["/5146-PWA/","/5146-PWA/index.html","/5146-PWA/style.css","/5146-PWA/script.js","/5146-PWA/manifest.json","/5146-PWA/icons/icon-128.png","/5146-PWA/icons/icon-512.png"];self.addEventListener("install",n=>{n.waitUntil(caches.open("my-recipe-organizer").then(n=>n.addAll(e)))}),self.addEventListener("fetch",e=>{e.respondWith(caches.match(e.request).then(n=>n||fetch(e.request)))});
-//# sourceMappingURL=index.43fde6f7.js.map
