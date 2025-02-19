@@ -23,7 +23,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Function to load recipes
+// returns the recipes from firestore
 async function loadRecipes() {
   const data = await getDocs(collection(db, "recipes"));
   let recipeList = [];
@@ -33,17 +33,17 @@ async function loadRecipes() {
   return recipeList;
 }
 
-// Function to add a recipe
+// adds document to firestore
 async function addRecipe(newRecipe) {
   await addDoc(collection(db, "recipes"), newRecipe);
 }
 
-// Function to delete a recipe
+// deletes recipe from firestore
 async function deleteRecipe(recipeId) {
   await deleteDoc(doc(db, "recipes", recipeId));
 }
 
-// Function to get API key for AI
+// gets the Google API key from firestore
 async function getApiKey() {
   let snapshot = await getDoc(doc(db, "apikey", "googlegenai"));
   return snapshot.data().key;

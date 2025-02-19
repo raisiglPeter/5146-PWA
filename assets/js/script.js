@@ -17,6 +17,7 @@ const addModal = document.querySelector(".add-modal");
 const addRecipeButton = document.getElementById("submit-recipe");
 const homeButton = document.getElementById("home-button");
 const favouriteButton = document.getElementById("favourite-button");
+const signOutbutton = document.getElementById("signOutBttn");
 const recipeListDiv = document.querySelector(".recipe-list");
 // AI HTML
 const chatHistory = document.getElementById("chat-history");
@@ -176,7 +177,7 @@ async function addRecipeFromChat(title, description) {
 
   await addRecipe(newRecipe);
 
-  loadRecipes();
+  loadAndRenderRecipes();
 }
 // remove recipe from AI chat
 async function deleteRecipeFromChat(title) {
@@ -275,10 +276,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       tagMemory = [];
       stepMemory = [];
     }
+    loadAndRenderRecipes();
   });
 
   // NAVIGATION BUTTONS
-  // Add - Show/hide modal and change button color
+  // Add button - Show/hide modal and change button color
   showModalButton.addEventListener("click", () => {
     if (addModal.style.display === "none" || addModal.style.display === "") {
       addModal.style.display = "flex";
@@ -299,6 +301,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     const recipes = await loadRecipes();
     const favouriteRecipes = recipes.filter((recipe) => recipe.favourite);
     renderRecipes(favouriteRecipes);
+  });
+  // Sign Out button
+  signOutbutton.addEventListener("click", () => {
+    console.log("user signed out");
+    window.location.href = "index.html";
   });
 
   // CHATBOT BUTTONS
