@@ -2,7 +2,7 @@ import { auth } from "./firebase.js";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const provider = new GoogleAuthProvider();
-const signInBttn = document.getElementById("signIn");
+const signInBttn = document.getElementById("signInButton");
 
 const sw = new URL("service-worker.js", import.meta.url);
 
