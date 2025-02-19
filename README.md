@@ -14,7 +14,7 @@ This is an interactive web application that allows users to organize their favor
 
 ## Demo
 
-You can see a live demo of the Recipe Organizer here: https://raisiglpeter.github.io/5146-PWA/ 
+You can see a live demo of the Recipe Organizer here: https://raisiglpeter.github.io/5146-PWA/
 
 ## Technologies Used
 
@@ -26,13 +26,13 @@ You can see a live demo of the Recipe Organizer here: https://raisiglpeter.githu
 
 ## Local Setup
 
-1.  Clone the repository: `git clone https://github.com/your-username/your-repo-name.git`
-2.  Install dependencies (if any): `npm install`
-3.  Set up Firebase:
-    - Create a Firebase project.
-    - Enable Firestore.
-    - Configure your Firebase credentials in the `script.js` file.
-4.  Run the app: Open `index.html` in your browser.
+### 1. Clone the Repository
+
+```sh
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+
+
 
 ## Project Structure
 
@@ -40,3 +40,4 @@ You can see a live demo of the Recipe Organizer here: https://raisiglpeter.githu
 - `style.css`: CSS file for styling.
 - `script.js`: JavaScript file for functionality.
 - `README.md`: This file.
+```

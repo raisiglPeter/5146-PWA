@@ -4,16 +4,16 @@ body {
 }
 main {
   align-items: center;
+  padding: 1rem;
 }
 .sign-in {
-  min-width: 300px;
+  width: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px;
+  padding: 0.5rem;
   background: white;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
@@ -29,6 +29,10 @@ main {
   width: 100%;
   flex: 1;
 }
+#registerButton {
+  width: 100%;
+  flex: 1;
+}
 label {
   margin-top: 0.5rem;
 }
@@ -41,12 +45,15 @@ button {
   button {
     font-size: medium;
   }
+  .sign-in {
+    max-width: 400px;
+  }
 }
 
 /* TABLET LAYOUT */
 @media (min-width: 768px) and (max-width: 1024px) {
   .sign-in {
-    max-width: 600px;
+    max-width: 400px;
   }
   button {
     font-size: medium;
@@ -55,4 +62,7 @@ button {
 
 /* DESKTOP LAYOUT */
 @media (min-width: 1025px) {
+  .sign-in {
+    max-width: 400px;
+  }
 }

@@ -9,6 +9,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBCdNAkePR48BW0AdSOONp7sOfIirYdRv0",
@@ -49,4 +50,5 @@ async function getApiKey() {
   return snapshot.data().key;
 }
 
+export const auth = getAuth();
 export { db, loadRecipes, addRecipe, deleteRecipe, getApiKey };
