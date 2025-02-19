@@ -1,0 +1,353 @@
+:root {
+  /* CSS HEX */
+  --heliotrope: #ca7df9;
+  --white-smoke: #f4f4f4;
+  --bright-pink-crayola: #f26a8d;
+  --amaranth-pink: #f49cbb;
+  --light-cyan: #cbeef3;
+  --black: #000;
+}
+/* HTML & RESET  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Courier New", Courier, monospace;
+  background-color: var(--white-smoke);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+p,
+input,
+textarea,
+button {
+  font-size: medium;
+  font-weight: 500;
+  font-family: "Courier New", Courier, monospace;
+}
+h1 {
+  text-align: center;
+}
+h5 {
+  margin-top: 0.5rem;
+}
+ol {
+  list-style: none;
+}
+button:hover {
+  cursor: pointer;
+}
+
+/* MISC  */
+.normal-text {
+  font-weight: normal;
+}
+
+/* HEADER NAV  */
+header {
+  background-color: var(--heliotrope);
+  color: black;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-height: 50px;
+  background-color: var(--white-smoke);
+}
+.nav-link-button {
+  color: var(--black);
+  border: 0;
+  background-color: var(--white-smoke);
+  font-weight: 600;
+  flex: 1;
+  text-align: center;
+  padding: 1rem 0;
+  cursor: pointer;
+}
+.nav-link-button:hover {
+  color: var(--bright-pink-crayola);
+}
+
+/* MAIN CONTENT  */
+main {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--amaranth-pink);
+  width: 100%;
+}
+.button {
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+.button:hover {
+  background-color: var(--heliotrope);
+}
+
+/* MODAL  */
+.add-modal {
+  display: none;
+  background-color: var(--amaranth-pink);
+  flex-direction: column;
+  margin: 0 auto;
+  width: 100%;
+  gap: 0.5rem;
+  align-items: start;
+  padding: 1rem;
+}
+.add-modal-div {
+  width: 100%;
+  background-color: var(--amaranth-pink);
+  margin: 0 auto;
+}
+.recipe-label {
+  font-weight: 600;
+}
+.recipe-input {
+  margin-top: 0.5rem;
+  width: 100%;
+  background-color: var(--white-smoke);
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+}
+.add-step-div,
+.add-tag-div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.steps-preview {
+  margin-left: 2rem;
+  margin-top: 1rem;
+}
+.tags-preview {
+  padding-top: 0.5rem;
+}
+.recipe-steps-container,
+.recipe-tags-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.recipe-step-label,
+.recipe-tag-label {
+  margin-right: 1rem;
+  flex: 1;
+}
+.recipe-step-button,
+.recipe-tag-button {
+  padding: 0;
+  width: 35%;
+}
+.add-modal-button {
+  min-width: 95px;
+}
+.add-modal-flex-end {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+}
+.recipe-favourite {
+  padding: 0.5rem 0;
+  flex: 0.1;
+}
+
+/* TAG FILTER  */
+.tag-filter {
+  display: flex;
+  align-items: center;
+  overflow-x: hidden;
+  gap: 0.5rem;
+  height: 40px;
+  margin: auto;
+  padding-left: 1rem;
+}
+
+/* FIXME:  */
+/* .filter-button {
+  border: 0;
+  border-radius: 1rem;
+  padding: 0.3rem 0.5rem;
+  white-space: nowrap;
+}
+.filter-button:hover {
+  color: var(--bright-pink-crayola);
+} */
+
+/* RECIPE LIST  */
+.recipe-list {
+  padding: 1rem;
+  width: 100%;
+  background-color: var(--white-smoke);
+}
+.recipe-card {
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+.recipe-list-h4 {
+  padding-top: 0.5rem;
+}
+.recipe-tags {
+  font-size: small;
+  margin-bottom: 0.5rem;
+}
+.recipe-buttons {
+  margin-bottom: 0.5rem;
+}
+.recipe-button {
+  background-color: var(--amaranth-pink);
+}
+
+/* TABLET LAYOUT */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .add-modal {
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 750px;
+    gap: 0.5rem;
+    align-items: start;
+    padding: 1rem;
+  }
+  .navigation-container {
+    display: flex;
+    justify-content: center;
+    background-color: var(--white-smoke);
+  }
+  .nav-link-button {
+    flex: 0;
+    min-width: 125px;
+  }
+  .recipe-card {
+    max-width: 750px;
+  }
+  .recipe-step-button,
+  .recipe-tag-button {
+    padding: 0;
+    width: 25%;
+  }
+}
+
+/* DESKTOP LAYOUT */
+@media (min-width: 1025px) {
+  .navigation-container {
+    display: flex;
+    justify-content: center;
+    background-color: var(--white-smoke);
+  }
+  .add-modal {
+    width: 100%;
+  }
+  .add-modal-div {
+    max-width: 750px;
+  }
+  .recipe-step-button,
+  .recipe-tag-button {
+    width: 20%;
+  }
+  .nav-link-button {
+    flex: 0;
+    min-width: 125px;
+  }
+  .recipe-card {
+    max-width: 750px;
+  }
+}
+
+/* CHATBOT WINDOW  */
+#chatbot-container {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+}
+#chat-history {
+  height: 200px;
+  overflow-y: auto;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 100%;
+}
+#chat-input {
+  width: calc(100% - 60px);
+  padding: 5px;
+  margin-right: 5px;
+  border-radius: 0.5rem;
+  border: var(--bright-pink-crayola) 1px solid;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.history {
+  padding-bottom: 15px;
+}
+.chatbot-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+#send-btn {
+  width: 90%;
+  display: none;
+}
+#close-chat-btn {
+  width: 90%;
+}
+.chat-button {
+  font-size: medium;
+  font-family: "Courier New", Courier, monospace;
+  color: var(--black);
+  border: 0;
+  background-color: var(--white-smoke);
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+}
+.chat-button:hover {
+  background-color: var(--heliotrope);
+}
+
+.remove-tag {
+  background-color: white;
+  color: black;
+  border-radius: 50%; /* Make it circular */
+  border: none; /* Remove default button border */
+  width: 20px; /* Adjust size as needed */
+  height: 20px; /* Adjust size as needed */
+  font-size: 12px; /* Adjust font size as needed */
+  cursor: pointer; /* Indicate that it's clickable */
+  margin-left: 10px; /* Add some space between text and button */
+}
