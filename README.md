@@ -14,7 +14,7 @@ This is an interactive web application that allows users to organize their favor
 
 ## Demo
 
-You can see a live demo of the Recipe Organizer here: [link to your GitHub Pages site]
+You can see a live demo of the Recipe Organizer here: https://raisiglpeter.github.io/5146-PWA/ 
 
 ## Technologies Used
 
