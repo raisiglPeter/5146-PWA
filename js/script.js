@@ -1,29 +1,9 @@
-// firebase
-import { initializeApp } from "firebase/app";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  getDoc,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
-const firebaseConfig = {
-  apiKey: "AIzaSyBCdNAkePR48BW0AdSOONp7sOfIirYdRv0",
-  authDomain: "pwa-5719b.firebaseapp.com",
-  projectId: "pwa-5719b",
-  storageBucket: "pwa-5719b.firebasestorage.app",
-  messagingSenderId: "1077986382281",
-  appId: "1:1077986382281:web:f1cca2531b3b05ac199818",
-  measurementId: "G-1NPPL3P4HF",
-};
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
 // AI import
 import { GoogleGenerativeAI } from "@google/generative-ai";
 let apiKey, genAI, model;
+
+// firebase imports
+import { loadRecipes, addRecipe, deleteRecipe, getApiKey } from "./firebase.js";
 
 const stepInput = document.getElementById("recipe-steps");
 const addStepButton = document.querySelector(".recipe-step-button");
@@ -47,18 +27,13 @@ const chatbotButtons = document.querySelector(".chatbot-buttons");
 const chatbotContainer = document.getElementById("chatbot-container");
 
 // temporary memory
-let recipeList = [];
 let tagMemory = [];
 let stepMemory = [];
 
 // get firestore recipes
-async function loadRecipes() {
-  const data = await getDocs(collection(db, "recipes"));
-  recipeList = [];
-  data.forEach((doc) => {
-    recipeList.push({ id: doc.id, ...doc.data() });
-  });
-  renderRecipes(recipeList);
+async function loadAndRenderRecipes() {
+  const recipes = await loadRecipes();
+  renderRecipes(recipes);
 }
 
 // render recipes HTML
@@ -112,8 +87,8 @@ function renderRecipes(recipes) {
     });
 
     deleteButton.addEventListener("click", async () => {
-      await deleteDoc(doc(db, "recipes", recipe.id));
-      loadRecipes();
+      await deleteRecipe(recipe.id);
+      loadAndRenderRecipes();
     });
 
     recipeListDiv.appendChild(recipeCard);
@@ -121,16 +96,19 @@ function renderRecipes(recipes) {
 }
 
 // AI code
-async function getApiKey() {
-  let snapshot = await getDoc(doc(db, "apikey", "googlegenai"));
-  apiKey = snapshot.data().key;
+async function setupAI() {
+  apiKey = await getApiKey();
   genAI = new GoogleGenerativeAI(apiKey);
   model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 }
+
 async function askChatBot(request) {
   try {
     const response = await model.generateContent(request);
-    const textResponse = response.response.text();
+    const textResponse =
+      response.candidates[0]?.content.parts[0]?.text ||
+      "AI Error: No response.";
+
     appendMessage(textResponse);
   } catch (error) {
     appendMessage("AI Error: Unable to process request.");
@@ -196,22 +174,25 @@ async function addRecipeFromChat(title, description) {
     createdAt: new Date().toISOString(),
   };
 
-  await addDoc(collection(db, "recipes"), newRecipe);
+  await addRecipe(newRecipe);
+
   loadRecipes();
 }
 // remove recipe from AI chat
 async function deleteRecipeFromChat(title) {
   let found = false;
-  for (let recipe of recipeList) {
+
+  const recipes = await loadRecipes();
+  for (let recipe of recipes) {
     if (recipe.title.toLowerCase() === title.toLowerCase()) {
-      await deleteDoc(doc(db, "recipes", recipe.id));
+      await deleteRecipe(recipe.id);
       found = true;
       break;
     }
   }
   if (found) {
     appendMessage(`Recipe "${title}" deleted.`);
-    loadRecipes();
+    loadAndRenderRecipes();
   } else {
     appendMessage(`Recipe "${title}" not found.`);
   }
@@ -221,7 +202,8 @@ async function deleteRecipeFromChat(title) {
 document.addEventListener("DOMContentLoaded", async () => {
   loadRecipes();
 
-  await getApiKey();
+  await loadAndRenderRecipes();
+  await setupAI();
 
   sendBtn.addEventListener("click", async () => {
     let prompt = chatInput.value.trim().toLowerCase();
@@ -284,8 +266,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       };
 
       // FIRESTORE ADD RECIPE
-      await addDoc(collection(db, "recipes"), newRecipe);
-      loadRecipes();
+      await addRecipe(newRecipe);
 
       // Reset input fields after adding recipe
       resetButton.click();
@@ -311,11 +292,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   homeButton.addEventListener("click", () => {
     addModal.style.display = "none";
     showModalButton.style.backgroundColor = "#f4f4f4";
-    renderRecipes(recipeList);
+    loadAndRenderRecipes();
   });
   // Favourite button
-  favouriteButton.addEventListener("click", () => {
-    const favouriteRecipes = recipeList.filter((recipe) => recipe.favourite);
+  favouriteButton.addEventListener("click", async () => {
+    const recipes = await loadRecipes();
+    const favouriteRecipes = recipes.filter((recipe) => recipe.favourite);
     renderRecipes(favouriteRecipes);
   });
 
@@ -340,5 +322,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     chatbotButtons.style.justifyContent = isClosed ? "space-between" : "center";
   });
 
-  renderRecipes(recipeList);
+  await loadAndRenderRecipes();
 });
