@@ -26,6 +26,7 @@ const sendBtn = document.getElementById("send-btn");
 const closeAI = document.getElementById("close-chat-btn");
 const chatbotButtons = document.querySelector(".chatbot-buttons");
 const chatbotContainer = document.getElementById("chatbot-container");
+const chatInputLabel = document.getElementById("chat-input-label");
 
 // temporary memory
 let tagMemory = [];
@@ -331,6 +332,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     chatbotContainer.style.width = isClosed ? "300px" : "auto";
     chatHistory.style.display = isClosed ? "block" : "none";
+    chatInputLabel.style.display = isClosed ? "block" : "none";
     chatInput.style.display = isClosed ? "block" : "none";
     sendBtn.style.display = isClosed ? "block" : "none";
     closeAI.innerText = isClosed ? "Close" : "AI Chat";
@@ -339,9 +341,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     // chat welcome message
     if (isClosed && !welcomeMessageShown) {
       appendMessage(
-        "Welcome to the AI Chat! Commands:\n" +
-          '- **"add recipe Title; Description"** → Add a recipe.\n' +
-          '- **"delete recipe Title"** → Remove a recipe.'
+        "Welcome to the AI Chat! Available commands:\n" +
+          `<br/>` +
+          '- add recipe Title; Description"** → Add a recipe.\n' +
+          `<br/>` +
+          '- delete recipe Title"** → Remove a recipe.'
       );
       welcomeMessageShown = true;
     }
