@@ -49,7 +49,7 @@ async function loadAndRenderRecipes() {
   renderRecipes(recipes);
 }
 
-// toggle add recipe modal function
+// toggle add recipe modal
 function toggleModal(visible) {
   addModal.style.display = visible ? "flex" : "none";
   showModalButton.style.backgroundColor = visible ? "#f49cbb" : "#f4f4f4";
@@ -304,7 +304,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   // NAVIGATION BUTTONS
   // Add nav button - Show/hide modal and change button color
   showModalButton.addEventListener("click", () => {
+    console.log("add modal button works");
     const isHidden = addModal.getAttribute("aria-hidden") === "true";
+    console.log(isHidden);
     toggleModal(!isHidden);
   });
   // Home nav button
