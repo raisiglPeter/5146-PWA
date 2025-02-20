@@ -18,7 +18,7 @@ const addRecipeButton = document.getElementById("submit-recipe");
 const homeButton = document.getElementById("home-button");
 const favouriteButton = document.getElementById("favourite-button");
 const signOutbutton = document.getElementById("signOutBttn");
-const recipeListDiv = document.querySelector(".recipe-list");
+const recipeListUl = document.querySelector(".recipe-list");
 // AI HTML
 const chatHistory = document.getElementById("chat-history");
 const chatInput = document.getElementById("chat-input");
@@ -51,10 +51,10 @@ async function loadAndRenderRecipes() {
 
 // render recipes HTML
 function renderRecipes(recipes) {
-  recipeListDiv.innerHTML = "";
+  recipeListUl.innerHTML = "";
 
   recipes.forEach((recipe) => {
-    const recipeCard = document.createElement("div");
+    const recipeCard = document.createElement("li");
 
     recipeCard.classList.add("recipe-card");
 
@@ -104,7 +104,7 @@ function renderRecipes(recipes) {
       loadAndRenderRecipes();
     });
 
-    recipeListDiv.appendChild(recipeCard);
+    recipeListUl.appendChild(recipeCard);
   });
 }
 
