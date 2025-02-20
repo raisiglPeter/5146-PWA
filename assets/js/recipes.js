@@ -49,6 +49,14 @@ async function loadAndRenderRecipes() {
   renderRecipes(recipes);
 }
 
+// toggle add recipe modal function
+function toggleModal(visible) {
+  addModal.style.display = visible ? "flex" : "none";
+  showModalButton.style.backgroundColor = visible ? "#f49cbb" : "#f4f4f4";
+  showModalButton.innerText = visible ? "Close" : "Add";
+  addModal.setAttribute("aria-hidden", visible ? "false" : "true");
+}
+
 // render recipes HTML
 function renderRecipes(recipes) {
   recipeListUl.innerHTML = "";
@@ -95,8 +103,7 @@ function renderRecipes(recipes) {
       // tags preview
       tagsPreview.textContent = tempTags.join(", ");
 
-      addModal.style.display = "flex";
-      showModalButton.style.backgroundColor = "#f49cbb";
+      toggleModal(true);
     });
 
     deleteButton.addEventListener("click", async () => {
@@ -257,7 +264,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       .forEach((input) => (input.value = ""));
     document.getElementById("recipe-favourite").checked = false;
     stepsPreview.innerHTML = "";
-    tagMemory.length = 0;
+    tagMemory = [];
+    stepMemory = [];
     tagsPreview.textContent = "";
   });
   addRecipeButton.addEventListener("click", async () => {
@@ -285,23 +293,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       // Reset input fields after adding recipe
       resetButton.click();
       addModal.style.display = "none";
+      addModal.setAttribute("aria-hidden", "true");
       showModalButton.style.backgroundColor = "#f4f4f4";
+      showModalButton.innerText = "Add";
       tagMemory = [];
       stepMemory = [];
     }
-    loadAndRenderRecipes();
   });
 
   // NAVIGATION BUTTONS
   // Add nav button - Show/hide modal and change button color
   showModalButton.addEventListener("click", () => {
-    if (addModal.style.display === "none" || addModal.style.display === "") {
-      addModal.style.display = "flex";
-      showModalButton.style.backgroundColor = "#f49cbb";
-    } else {
-      addModal.style.display = "none";
-      showModalButton.style.backgroundColor = "#f4f4f4";
-    }
+    const isHidden = addModal.getAttribute("aria-hidden") === "true";
+    toggleModal(!isHidden);
   });
   // Home nav button
   homeButton.addEventListener("click", () => {

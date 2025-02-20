@@ -35,7 +35,13 @@
 
     <main>
       <!-- ADD RECIPE MODAL  -->
-      <div class="add-modal" role="dialog" aria-labelledby="add-recipe-title">
+      <div
+        class="add-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="add-recipe-title"
+        aria-hidden="true"
+      >
         <div class="add-modal-div">
           <label for="recipe-title" class="recipe-label">
             Recipe Title
@@ -44,6 +50,7 @@
               name="recipe-title"
               type="text"
               id="recipe-title"
+              required
             />
           </label>
         </div>
@@ -54,6 +61,7 @@
               class="recipe-input"
               name="recipe-description"
               id="recipe-description"
+              required
             ></textarea>
           </label>
         </div>
@@ -67,6 +75,7 @@
                 name="recipe-steps"
                 type="text"
                 id="recipe-steps"
+                required
               />
             </label>
             <button class="button recipe-step-button">Add Step</button>
@@ -75,6 +84,7 @@
             <ol style="list-style: decimal"></ol>
           </div>
         </div>
+        <!-- ADD RECIPE TAGS -->
         <div class="add-modal-div add-tag-div">
           <div class="recipe-tags-container">
             <label for="recipe-tags" class="recipe-label recipe-tag-label">
@@ -84,6 +94,7 @@
                 name="recipe-tags"
                 type="text"
                 id="recipe-tags"
+                required
               />
             </label>
             <button class="button recipe-tag-button">Add Tag</button>
@@ -116,7 +127,12 @@
       <div id="chatbot-container">
         <div id="chat-history"></div>
         <label id="chat-input-label" for="chat-input">Chat input:</label>
-        <input type="text" id="chat-input" placeholder="Type your message..." />
+        <input
+          type="text"
+          id="chat-input"
+          aria-label="Chatbot message input"
+          placeholder="Type your message..."
+        />
         <div class="chatbot-buttons">
           <button id="send-btn" class="chat-button">Send</button>
           <button id="close-chat-btn" class="chat-button">Close</button>
