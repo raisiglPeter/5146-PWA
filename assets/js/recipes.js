@@ -330,14 +330,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const isClosed = chatHistory.style.display === "none";
 
     chatbotContainer.style.width = isClosed ? "300px" : "auto";
-
-    // chatHistory.style.display = isClosed ? "block" : "none";
-    // chatInput.style.display = isClosed ? "block" : "none";
-    // sendBtn.style.display = isClosed ? "block" : "none";
-    chatHistory.classList.toggle("hidden");
-    chatInput.classList.toggle("hidden");
-    sendBtn.classList.toggle("hidden");
-
+    chatHistory.style.display = isClosed ? "block" : "none";
+    chatInput.style.display = isClosed ? "block" : "none";
+    sendBtn.style.display = isClosed ? "block" : "none";
     closeAI.innerText = isClosed ? "Close" : "AI Chat";
     chatbotButtons.style.justifyContent = isClosed ? "space-between" : "center";
 
@@ -348,7 +343,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           '- **"add recipe Title; Description"** → Add a recipe.\n' +
           '- **"delete recipe Title"** → Remove a recipe.'
       );
-      welcomeMessageShown = true; // Mark as shown
+      welcomeMessageShown = true;
     }
   });
 
