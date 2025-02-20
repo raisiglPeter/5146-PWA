@@ -28,13 +28,13 @@ const db = getFirestore(app);
 
 // returns the recipes from firestore
 async function loadRecipes() {
-  const user = auth.currentUser;
-  if (!user) {
+  const email = JSON.parse(localStorage.getItem("email"));
+  if (!email) {
     console.error("No user signed in");
     return [];
   }
 
-  const q = query(collection(db, "recipes"), where("email", "==", user.email));
+  const q = query(collection(db, "recipes"), where("email", "==", email));
   const data = await getDocs(q);
 
   let recipeList = [];
@@ -46,15 +46,14 @@ async function loadRecipes() {
 
 // adds document to firestore
 async function addRecipe(newRecipe) {
-  const user = auth.currentUser;
-
-  if (!user) {
+  const email = JSON.parse(localStorage.getItem("email"));
+  if (!email) {
     console.error("No user signed in");
     return;
   }
 
   // Add the email to the recipe object
-  newRecipe.email = user.email;
+  newRecipe.email = email;
   await addDoc(collection(db, "recipes"), newRecipe);
 }
 
