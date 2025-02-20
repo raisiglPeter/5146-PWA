@@ -335,7 +335,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   chatbotContainer.style.width = "auto";
 
   let welcomeMessageShown = false;
-  // open / close AI Chat window
+
+  // Open/close AI Chat window
   closeAI.addEventListener("click", () => {
     const isClosed = chatHistory.style.display === "none";
 
@@ -347,14 +348,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     closeAI.innerText = isClosed ? "Close" : "AI Chat";
     chatbotButtons.style.justifyContent = isClosed ? "space-between" : "center";
 
-    // chat welcome message
+    // Chat welcome message (only once)
     if (isClosed && !welcomeMessageShown) {
       appendMessage(
-        "Welcome to the AI Chat! Available commands:\n" +
-          `<br/>` +
-          '- add recipe Title; Description"** → Add a recipe.\n' +
-          `<br/>` +
-          '- delete recipe Title"** → Remove a recipe.'
+        `Welcome to the AI Chat! Available commands:<br>` +
+          `- <strong>add recipe "Title; Description"</strong> → Add a recipe.<br>` +
+          `- <strong>delete recipe "Title"</strong> → Remove a recipe.`
       );
       welcomeMessageShown = true;
     }
