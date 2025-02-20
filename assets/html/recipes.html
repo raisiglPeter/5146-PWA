@@ -18,16 +18,24 @@
         <p>for INFO-5146</p>
       </div>
       <nav class="navigation-container">
-        <button class="nav-link-button" id="show-modal-button">Add</button>
-        <button class="nav-link-button" id="home-button">Home</button>
-        <button class="nav-link-button" id="favourite-button">Favourite</button>
-        <button class="nav-link-button" id="signOutBttn">Sign Out</button>
+        <button type="button" class="nav-link-button" id="show-modal-button">
+          Add
+        </button>
+        <button type="button" class="nav-link-button" id="home-button">
+          Home
+        </button>
+        <button type="button" class="nav-link-button" id="favourite-button">
+          Favourite
+        </button>
+        <button type="button" class="nav-link-button" id="signOutBttn">
+          Sign Out
+        </button>
       </nav>
     </header>
 
     <main>
       <!-- ADD RECIPE MODAL  -->
-      <div class="add-modal">
+      <div class="add-modal" role="dialog" aria-labelledby="add-recipe-title">
         <div class="add-modal-div">
           <label for="recipe-title" class="recipe-label">
             Recipe Title
@@ -114,8 +122,8 @@
           <button id="close-chat-btn" class="chat-button">Close</button>
         </div>
       </div>
-      <!-- RECIPE LIST  -->
-      <div class="recipe-list"></div>
+      <!-- RECIPE LIST with aria polite -->
+      <ul class="recipe-list" aria-live="polite"></ul>
     </main>
 
     <!-- MAIN JS FILE -->
