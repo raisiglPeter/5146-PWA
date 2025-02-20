@@ -8,6 +8,8 @@ import {
   getDoc,
   deleteDoc,
   doc,
+  query,
+  where,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
@@ -26,7 +28,15 @@ const db = getFirestore(app);
 
 // returns the recipes from firestore
 async function loadRecipes() {
-  const data = await getDocs(collection(db, "recipes"));
+  const user = auth.currentUser;
+  if (!user) {
+    console.error("No user signed in");
+    return [];
+  }
+
+  const q = query(collection(db, "recipes"), where("email", "==", user.email));
+  const data = await getDocs(q);
+
   let recipeList = [];
   data.forEach((doc) => {
     recipeList.push({ id: doc.id, ...doc.data() });
@@ -36,6 +46,15 @@ async function loadRecipes() {
 
 // adds document to firestore
 async function addRecipe(newRecipe) {
+  const user = auth.currentUser;
+
+  if (!user) {
+    console.error("No user signed in");
+    return;
+  }
+
+  // Add the email to the recipe object
+  newRecipe.email = user.email;
   await addDoc(collection(db, "recipes"), newRecipe);
 }
 

@@ -31,17 +31,21 @@ const chatbotContainer = document.getElementById("chatbot-container");
 let tagMemory = [];
 let stepMemory = [];
 
+// check for signin email
+const email = JSON.parse(localStorage.getItem("email"));
+if (!email) {
+  window.location.href = "index.html";
+}
+// signout user if no email is found in local storage
+signOutbutton.addEventListener("click", function () {
+  localStorage.removeItem("email");
+  window.location.href = "index.html";
+});
+
 // get firestore recipes
 async function loadAndRenderRecipes() {
   const recipes = await loadRecipes();
   renderRecipes(recipes);
-}
-
-// check for signin email
-const email = JSON.parse(localStorage.getItem("email"));
-
-if (!email) {
-  window.location.href = "index.html";
 }
 
 // render recipes HTML
@@ -308,11 +312,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const recipes = await loadRecipes();
     const favouriteRecipes = recipes.filter((recipe) => recipe.favourite);
     renderRecipes(favouriteRecipes);
-  });
-  // Sign Out button
-  signOutbutton.addEventListener("click", () => {
-    console.log("user signed out");
-    window.location.href = "index.html";
   });
 
   // CHATBOT BUTTONS
