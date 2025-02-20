@@ -113,7 +113,6 @@ async function setupAI() {
   genAI = new GoogleGenerativeAI(apiKey);
   model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 }
-
 async function askChatBot(request) {
   try {
     const response = await model.generateContent(request);
@@ -157,7 +156,9 @@ function ruleChatBot(request) {
     let title = request.replace("delete recipe", "").trim();
 
     if (title) {
-      deleteRecipeFromChat(title);
+      if (confirm(`Are you sure you want to delete "${title}"?`)) {
+        deleteRecipeFromChat(title);
+      }
     } else {
       appendMessage("Please specify the recipe title to delete.");
     }
@@ -291,7 +292,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // NAVIGATION BUTTONS
-  // Add button - Show/hide modal and change button color
+  // Add nav button - Show/hide modal and change button color
   showModalButton.addEventListener("click", () => {
     if (addModal.style.display === "none" || addModal.style.display === "") {
       addModal.style.display = "flex";
@@ -301,13 +302,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       showModalButton.style.backgroundColor = "#f4f4f4";
     }
   });
-  // Home button
+  // Home nav button
   homeButton.addEventListener("click", () => {
     addModal.style.display = "none";
     showModalButton.style.backgroundColor = "#f4f4f4";
     loadAndRenderRecipes();
   });
-  // Favourite button
+  // Favourite nav button
   favouriteButton.addEventListener("click", async () => {
     const recipes = await loadRecipes();
     const favouriteRecipes = recipes.filter((recipe) => recipe.favourite);
@@ -315,7 +316,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // CHATBOT BUTTONS
-  // default state
+  // default state for the AI Chat button
   chatHistory.style.display = "none";
   chatInput.style.display = "none";
   sendBtn.style.display = "none";
@@ -323,16 +324,32 @@ document.addEventListener("DOMContentLoaded", async () => {
   chatbotButtons.style.justifyContent = "center";
   chatbotContainer.style.width = "auto";
 
-  // open / close AI chat window
+  let welcomeMessageShown = false;
+  // open / close AI Chat window
   closeAI.addEventListener("click", () => {
     const isClosed = chatHistory.style.display === "none";
 
     chatbotContainer.style.width = isClosed ? "300px" : "auto";
-    chatHistory.style.display = isClosed ? "block" : "none";
-    chatInput.style.display = isClosed ? "block" : "none";
-    sendBtn.style.display = isClosed ? "block" : "none";
+
+    // chatHistory.style.display = isClosed ? "block" : "none";
+    // chatInput.style.display = isClosed ? "block" : "none";
+    // sendBtn.style.display = isClosed ? "block" : "none";
+    chatHistory.classList.toggle("hidden");
+    chatInput.classList.toggle("hidden");
+    sendBtn.classList.toggle("hidden");
+
     closeAI.innerText = isClosed ? "Close" : "AI Chat";
     chatbotButtons.style.justifyContent = isClosed ? "space-between" : "center";
+
+    // chat welcome message
+    if (isClosed && !welcomeMessageShown) {
+      appendMessage(
+        "Welcome to the AI Chat! Commands:\n" +
+          '- **"add recipe Title; Description"** → Add a recipe.\n' +
+          '- **"delete recipe Title"** → Remove a recipe.'
+      );
+      welcomeMessageShown = true; // Mark as shown
+    }
   });
 
   await loadAndRenderRecipes();
