@@ -292,22 +292,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // Reset input fields after adding recipe
       resetButton.click();
-      addModal.style.display = "none";
-      addModal.setAttribute("aria-hidden", "true");
-      showModalButton.style.backgroundColor = "#f4f4f4";
-      showModalButton.innerText = "Add";
-      tagMemory = [];
-      stepMemory = [];
+      toggleModal(false);
     }
   });
 
   // NAVIGATION BUTTONS
   // Add nav button - Show/hide modal and change button color
   showModalButton.addEventListener("click", () => {
+    console.log(showModalButton);
     console.log("add modal button works");
     const isHidden = addModal.getAttribute("aria-hidden") === "true";
     console.log(isHidden);
+    console.log("add modal display=", addModal.style.display);
     toggleModal(!isHidden);
+    console.log("add modal display=", addModal.style.display);
+    console.log(isHidden);
   });
   // Home nav button
   homeButton.addEventListener("click", () => {
