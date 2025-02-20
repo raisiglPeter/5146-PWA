@@ -315,11 +315,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     const favouriteRecipes = recipes.filter((recipe) => recipe.favourite);
     renderRecipes(favouriteRecipes);
   });
+  // Press enter to check/uncheck the favourite checkbox
+  favouriteButton.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      let activeElement = document.activeElement;
+      if (activeElement.type === "checkbox") {
+        activeElement.checked = !activeElement.checked;
+      }
+    }
+  });
 
   // CHATBOT BUTTONS
   // default state for the AI Chat button
   chatHistory.style.display = "none";
   chatInput.style.display = "none";
+  chatInputLabel.style.display = "none";
   sendBtn.style.display = "none";
   closeAI.innerText = "AI Chat";
   chatbotButtons.style.justifyContent = "center";
