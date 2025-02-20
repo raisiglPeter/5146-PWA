@@ -299,14 +299,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   // NAVIGATION BUTTONS
   // Add nav button - Show/hide modal and change button color
   showModalButton.addEventListener("click", () => {
-    console.log(showModalButton);
-    console.log("add modal button works");
-    const isHidden = addModal.getAttribute("aria-hidden") === "true";
-    console.log(isHidden);
-    console.log("add modal display=", addModal.style.display);
-    toggleModal(!isHidden);
-    console.log("add modal display=", addModal.style.display);
-    console.log(isHidden);
+    const isModalOpen = addModal.style.display === "flex";
+    toggleModal(!isModalOpen);
   });
   // Home nav button
   homeButton.addEventListener("click", () => {
