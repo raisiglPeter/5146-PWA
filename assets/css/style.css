@@ -131,7 +131,18 @@ main {
   padding: 0.5rem;
 }
 .recipe-input-highlight {
-  border: 2px solid var(--heliotrope);
+  border: 2px solid red;
+  background-color: rgb(255, 202, 202);
+}
+.input-validation-message {
+  display: none;
+  color: red;
+  font-weight: 700;
+  background-color: rgb(255, 202, 202);
+  border: none;
+  border-radius: 0.25rem;
+  margin-top: 0.5rem;
+  width: 100%;
 }
 .add-step-div,
 .add-tag-div {

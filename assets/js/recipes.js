@@ -275,6 +275,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // getting values from title, description and favourite checkbox
     const titleInput = document.getElementById("recipe-title");
     const descInput = document.getElementById("recipe-description");
+    const inputValidation = document.querySelector(".input-validation-message");
 
     const title = titleInput.value.trim();
     const description = descInput.value.trim();
@@ -295,10 +296,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       await addRecipe(newRecipe);
 
       // Reset input fields after adding recipe
+      inputValidation.style.display = "none";
+
       resetButton.click();
       toggleModal(false);
     } else {
       // input validation highlight
+      inputValidation.style.display = "flex";
+
       if (!title) {
         titleInput.classList.add("recipe-input-highlight");
       } else {
