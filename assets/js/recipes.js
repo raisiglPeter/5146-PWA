@@ -5,19 +5,22 @@ let apiKey, genAI, model;
 // firebase imports
 import { loadRecipes, addRecipe, deleteRecipe, getApiKey } from "./firebase.js";
 
-const stepInput = document.getElementById("recipe-steps");
-const addStepButton = document.querySelector(".recipe-step-button");
-const stepsPreview = document.querySelector(".steps-preview ol");
-const tagInput = document.getElementById("recipe-tags");
-const addTagButton = document.querySelector(".recipe-tag-button");
-const tagsPreview = document.querySelector(".tags-preview p");
-const resetButton = document.getElementById("add-modal-reset-button");
-const showModalButton = document.getElementById("show-modal-button");
 const addModal = document.querySelector(".add-modal");
-const addRecipeButton = document.getElementById("submit-recipe");
 const homeButton = document.getElementById("home-button");
 const favouriteButton = document.getElementById("favourite-button");
 const signOutbutton = document.getElementById("signOutBttn");
+
+const showModalButton = document.getElementById("show-modal-button");
+const stepInput = document.getElementById("recipe-steps");
+const tagInput = document.getElementById("recipe-tags");
+const addStepButton = document.querySelector(".recipe-step-button");
+const addTagButton = document.querySelector(".recipe-tag-button");
+const stepsPreview = document.querySelector(".steps-preview ol");
+const tagsPreview = document.querySelector(".tags-preview p");
+
+const resetButton = document.getElementById("add-modal-reset-button");
+const addRecipeButton = document.getElementById("submit-recipe");
+
 const recipeListUl = document.querySelector(".recipe-list");
 // AI HTML
 const chatHistory = document.getElementById("chat-history");
@@ -270,10 +273,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   addRecipeButton.addEventListener("click", async () => {
     // getting values from title, description and favourite checkbox
-    const title = document.getElementById("recipe-title").value.trim();
-    const description = document
-      .getElementById("recipe-description")
-      .value.trim();
+    const titleInput = document.getElementById("recipe-title");
+    const descInput = document.getElementById("recipe-description");
+
+    const title = titleInput.value.trim();
+    const description = descInput.value.trim();
     const favourite = document.getElementById("recipe-favourite").checked;
 
     // check input and create new recipe object
@@ -287,12 +291,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         createdAt: new Date().toISOString(),
       };
 
-      // FIRESTORE ADD RECIPE
+      // add recipe to firestore and recipe list
       await addRecipe(newRecipe);
 
       // Reset input fields after adding recipe
       resetButton.click();
       toggleModal(false);
+    } else {
+      // input validation highlight
+      if (!title) {
+        titleInput.classList.add("recipe-input-highlight");
+      } else {
+        titleInput.classList.remove("recipe-input-highlight");
+      }
+
+      if (!description) {
+        descInput.classList.add("recipe-input-highlight");
+      } else {
+        descInput.classList.remove("recipe-input-highlight");
+      }
     }
   });
 
