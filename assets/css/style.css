@@ -123,12 +123,15 @@ main {
   font-weight: 600;
 }
 .recipe-input {
+  border: none;
+  border-radius: 0.5rem;
   margin-top: 0.5rem;
   width: 100%;
   background-color: var(--white-smoke);
   padding: 0.5rem;
-  border: none;
-  border-radius: 0.5rem;
+}
+.recipe-input-highlight {
+  border: 2px solid var(--heliotrope);
 }
 .add-step-div,
 .add-tag-div {
