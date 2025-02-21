@@ -137,9 +137,10 @@ main {
 .input-validation-message {
   display: none;
   color: red;
-  font-weight: 700;
+  font-weight: bolder;
   background-color: rgb(255, 202, 202);
-  border: none;
+  padding: 0.5rem;
+  border: 2px red solid;
   border-radius: 0.25rem;
   margin-top: 0.5rem;
   width: 100%;

@@ -297,7 +297,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // Reset input fields after adding recipe
       inputValidation.style.display = "none";
-
+      titleInput.classList.remove("recipe-input-highlight");
+      descInput.classList.remove("recipe-input-highlight");
       resetButton.click();
       toggleModal(false);
     } else {
