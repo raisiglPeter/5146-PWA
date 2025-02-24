@@ -133,7 +133,7 @@ async function askChatBot(request) {
     }
 
     const apiResponse = await model.generateContent(request);
-    const response = apiResponse.response; // Adjust for nested response structure
+    const response = apiResponse.response;
 
     if (!response || !response.candidates || response.candidates.length === 0) {
       appendMessage("AI Error: No response from AI.");
@@ -199,6 +199,7 @@ function appendMessage(message) {
   history.className = "history";
   chatHistory.appendChild(history);
   chatInput.value = "";
+  chatHistory.scrollTop = chatHistory.scrollHeight;
 }
 // adding a recipe with AI
 async function addRecipeFromChat(title, description) {
