@@ -200,6 +200,7 @@ async function addRecipeFromChat(title, description) {
 
   await addRecipe(newRecipe);
 
+  showNotification("Added recipe: " + newRecipe.title);
   loadAndRenderRecipes();
 }
 // remove recipe from AI chat
@@ -220,6 +221,16 @@ async function deleteRecipeFromChat(title) {
   } else {
     appendMessage(`Recipe "${title}" not found.`);
   }
+}
+const notification = document.getElementById("notification");
+// notification for added recipes
+function showNotification(message) {
+  notification.textContent = message;
+  notification.style.visibility = "visible";
+  setTimeout(() => {
+    notification.style.visibility = "hidden";
+    notification.textContent = ""; // Clear message for future updates
+  }, 3000);
 }
 
 // ONLOAD listeners and HTML
@@ -296,11 +307,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       // add recipe to firestore and recipe list
       await addRecipe(newRecipe);
 
-      // Reset input fields after adding recipe
+      // Reset input fields after adding recipe, show success notification
       inputValidation.style.display = "none";
       titleInput.classList.remove("recipe-input-highlight");
       descInput.classList.remove("recipe-input-highlight");
       resetButton.click();
+      showNotification("Added recipe: " + newRecipe.title);
       toggleModal(false);
     } else {
       // input validation highlight
