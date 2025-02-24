@@ -6,6 +6,7 @@
   --amaranth-pink: #f49cbb;
   --light-cyan: #cbeef3;
   --black: #000;
+  --font-hover: #cb103f;
 }
 /* HTML & RESET  */
 * {
@@ -40,6 +41,9 @@ ol {
 button:hover {
   cursor: pointer;
 }
+button:focus {
+  outline: 2px solid red; /* Add a visible focus outline */
+}
 
 /* MISC  */
 .normal-text {
@@ -66,9 +70,9 @@ header {
 .navigation-container {
   display: flex;
   justify-content: space-between;
+  gap: 2px;
   align-items: center;
   width: 100%;
-  max-height: 50px;
   background-color: var(--white-smoke);
 }
 .nav-link-button {
@@ -82,7 +86,8 @@ header {
   cursor: pointer;
 }
 .nav-link-button:hover {
-  color: var(--bright-pink-crayola);
+  background-color: var(--heliotrope);
+  text-decoration: underline;
 }
 
 /* MAIN CONTENT  */
@@ -109,10 +114,9 @@ main {
 
 /* MODAL  */
 .add-modal {
-  display: flex;
+  display: none;
   background-color: var(--amaranth-pink);
   flex-direction: column;
-
   margin: 0 auto;
   width: 100%;
   gap: 0.5rem;
@@ -137,11 +141,11 @@ main {
 }
 .recipe-input-highlight {
   border: 2px solid red;
-  background-color: rgb(255, 202, 202);
+  background-color: #ffcaca;
 }
 .input-validation-message {
   display: none;
-  color: red;
+  color: #000000;
   font-weight: bolder;
   background-color: rgb(255, 202, 202);
   padding: 0.5rem;
