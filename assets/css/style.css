@@ -103,11 +103,16 @@ main {
   background-color: var(--heliotrope);
 }
 
+#add-recipe-title {
+  margin: 0 auto;
+}
+
 /* MODAL  */
 .add-modal {
-  display: none;
+  display: flex;
   background-color: var(--amaranth-pink);
   flex-direction: column;
+
   margin: 0 auto;
   width: 100%;
   gap: 0.5rem;
