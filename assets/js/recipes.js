@@ -127,36 +127,28 @@ async function setupAI() {
 }
 async function askChatBot(request) {
   try {
-    console.log("askChatBot() called with request:", request);
-
     if (!model) {
       appendMessage("AI Error: Model not initialized.");
-      console.error("Error: Model instance is undefined or null.");
       return;
     }
 
-    const response = await model.generateContent(request);
-    console.log("Full API response:", response);
+    const apiResponse = await model.generateContent(request);
+    const response = apiResponse.response; // Adjust for nested response structure
 
     if (!response || !response.candidates || response.candidates.length === 0) {
       appendMessage("AI Error: No response from AI.");
-      console.error("Error: Empty or invalid AI response:", response);
       return;
     }
 
-    const textResponse = response.candidates[0]?.content?.parts?.[0]?.text;
+    const textResponse = response?.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!textResponse) {
-      appendMessage("AI Error: No valid text response.");
-      console.error("Error: AI response missing text:", response);
+      appendMessage("AI Error: No valid response. Try reloading the page.");
       return;
     }
-
-    console.log("Extracted AI response:", textResponse);
     appendMessage(textResponse);
   } catch (error) {
-    appendMessage("AI Error: Unable to process request.");
-    console.error("AI Request Error:", error);
+    appendMessage("AI Error: Unable to process request. Error:", error);
   }
 }
 
