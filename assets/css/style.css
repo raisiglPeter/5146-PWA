@@ -74,6 +74,7 @@ header {
   align-items: center;
   width: 100%;
   background-color: var(--white-smoke);
+  padding-bottom: 2px;
 }
 .nav-link-button {
   color: var(--black);
