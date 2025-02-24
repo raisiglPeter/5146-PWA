@@ -136,6 +136,7 @@ async function askChatBot(request) {
     }
 
     const response = await model.generateContent(request);
+    console.log("Full API response:", response);
 
     if (!response || !response.candidates || response.candidates.length === 0) {
       appendMessage("AI Error: No response from AI.");
@@ -143,10 +144,15 @@ async function askChatBot(request) {
       return;
     }
 
-    const textResponse =
-      response.candidates[0]?.content?.parts?.[0]?.text ||
-      "AI Error: No response text.";
+    const textResponse = response.candidates[0]?.content?.parts?.[0]?.text;
 
+    if (!textResponse) {
+      appendMessage("AI Error: No valid text response.");
+      console.error("Error: AI response missing text:", response);
+      return;
+    }
+
+    console.log("Extracted AI response:", textResponse);
     appendMessage(textResponse);
   } catch (error) {
     appendMessage("AI Error: Unable to process request.");
