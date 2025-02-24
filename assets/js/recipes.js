@@ -314,10 +314,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       resetButton.click();
       showNotification("Added recipe: " + newRecipe.title);
       toggleModal(false);
+      loadAndRenderRecipes();
     } else {
       // input validation highlight
       inputValidation.style.display = "flex";
-
       if (!title) {
         titleInput.classList.add("recipe-input-highlight");
       } else {
