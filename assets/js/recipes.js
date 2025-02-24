@@ -330,12 +330,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     addModal.style.display = "none";
     showModalButton.style.backgroundColor = "#f4f4f4";
     loadAndRenderRecipes();
+    toggleModal(false);
   });
   // Favourite nav button
   favouriteButton.addEventListener("click", async () => {
     const recipes = await loadRecipes();
     const favouriteRecipes = recipes.filter((recipe) => recipe.favourite);
     renderRecipes(favouriteRecipes);
+    toggleModal(false);
   });
   // Press enter to check/uncheck the favourite checkbox
   favouriteButton.addEventListener("keydown", (event) => {
@@ -374,9 +376,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Chat welcome message (only once)
     if (isClosed && !welcomeMessageShown) {
       appendMessage(
-        `Welcome to the AI Chat! Available commands:\n` +
-          `- add recipe "Title; Description" → Add a recipe.\n` +
-          `- delete recipe "Title" → Remove a recipe.`
+        `Welcome to the AI Chat! Commands: add recipe "Title; Description" will add recipe.\n` +
+          `- delete recipe "Title" will remove a recipe.`
       );
       welcomeMessageShown = true;
     }
