@@ -5,6 +5,7 @@ let apiKey, genAI, model;
 // firebase imports
 import { loadRecipes, addRecipe, deleteRecipe, getApiKey } from "./firebase.js";
 
+// HTML
 const addModal = document.querySelector(".add-modal");
 const homeButton = document.getElementById("home-button");
 const favouriteButton = document.getElementById("favourite-button");
@@ -229,7 +230,7 @@ function showNotification(message) {
   notification.style.visibility = "visible";
   setTimeout(() => {
     notification.style.visibility = "hidden";
-    notification.textContent = ""; // Clear message for future updates
+    notification.textContent = "";
   }, 3000);
 }
 
@@ -304,7 +305,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         createdAt: new Date().toISOString(),
       };
 
-      // add recipe to firestore and recipe list
       await addRecipe(newRecipe);
 
       // Reset input fields after adding recipe, show success notification
@@ -384,7 +384,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     closeAI.innerText = isClosed ? "Close" : "AI Chat";
     chatbotButtons.style.justifyContent = isClosed ? "space-between" : "center";
 
-    // Chat welcome message (only once)
+    // welcome message (only once)
     if (isClosed && !welcomeMessageShown) {
       appendMessage(
         `Welcome to the AI Chat! Commands: add recipe "Title; Description" will add recipe.\n` +
