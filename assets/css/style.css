@@ -6,7 +6,6 @@
   --amaranth-pink: #f49cbb;
   --light-cyan: #cbeef3;
   --black: #000;
-  --font-hover: #cb103f;
 }
 /* HTML & RESET  */
 * {
@@ -43,7 +42,6 @@ button:hover {
 }
 button:focus {
   outline: 2px solid red;
-  outline-offset: 2px;
 }
 
 /* MISC  */
