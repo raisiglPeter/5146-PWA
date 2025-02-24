@@ -122,23 +122,38 @@ function renderRecipes(recipes) {
 // AI code
 async function setupAI() {
   apiKey = await getApiKey();
-  console.log(apiKey);
   genAI = new GoogleGenerativeAI(apiKey);
   model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 }
 async function askChatBot(request) {
   try {
+    console.log("askChatBot() called with request:", request);
+
+    if (!model) {
+      appendMessage("AI Error: Model not initialized.");
+      console.error("Error: Model instance is undefined or null.");
+      return;
+    }
+
     const response = await model.generateContent(request);
+
+    if (!response || !response.candidates || response.candidates.length === 0) {
+      appendMessage("AI Error: No response from AI.");
+      console.error("Error: Empty or invalid AI response:", response);
+      return;
+    }
+
     const textResponse =
-      response.candidates[0]?.content.parts[0]?.text ||
-      "AI Error: No response.";
+      response.candidates[0]?.content?.parts?.[0]?.text ||
+      "AI Error: No response text.";
 
     appendMessage(textResponse);
   } catch (error) {
     appendMessage("AI Error: Unable to process request.");
-    console.error(error);
+    console.error("AI Request Error:", error);
   }
 }
+
 // function to handle chatbot commands
 function ruleChatBot(request) {
   if (request.startsWith("add recipe")) {
@@ -176,6 +191,7 @@ function ruleChatBot(request) {
     }
     return true;
   }
+
   return false;
 }
 // display chatbot messages
@@ -221,8 +237,9 @@ async function deleteRecipeFromChat(title) {
     appendMessage(`Recipe "${title}" not found.`);
   }
 }
-const notification = document.getElementById("notification");
+
 // notification for added recipes
+const notification = document.getElementById("notification");
 function showNotification(message) {
   notification.textContent = message;
   notification.style.visibility = "visible";
@@ -241,13 +258,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   await setupAI();
 
   sendBtn.addEventListener("click", async () => {
-    let prompt = chatInput.value.trim().toLowerCase();
+    let prompt = chatInput.value.trim();
+
+    if (!prompt) {
+      appendMessage("Please enter a prompt");
+      return;
+    }
     if (prompt) {
       if (!ruleChatBot(prompt)) {
         askChatBot(prompt);
       }
-    } else {
-      appendMessage("Please enter a prompt");
     }
   });
 
