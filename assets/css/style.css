@@ -43,6 +43,7 @@ button:hover {
 }
 button:focus {
   outline: 2px solid red;
+  outline-offset: 2px;
 }
 
 /* MISC  */
@@ -81,7 +82,7 @@ header {
   align-items: center;
   width: 100%;
   background-color: var(--white-smoke);
-  padding-bottom: 2px;
+  z-index: 10;
 }
 .nav-link-button {
   color: var(--black);
