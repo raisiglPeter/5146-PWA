@@ -42,12 +42,19 @@ button:hover {
   cursor: pointer;
 }
 button:focus {
-  outline: 2px solid red; /* Add a visible focus outline */
+  outline: 2px solid red;
 }
 
 /* MISC  */
 .normal-text {
   font-weight: normal;
+}
+#notification {
+  width: 100%;
+  background-color: rgb(227, 255, 227);
+  color: #000;
+  font-size: medium;
+  text-align: center;
 }
 
 /* HEADER NAV  */
