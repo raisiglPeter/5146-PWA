@@ -57,6 +57,7 @@ function toggleModal(visible) {
   addModal.style.display = visible ? "flex" : "none";
   showModalButton.style.backgroundColor = visible ? "#f49cbb" : "#f4f4f4";
   showModalButton.innerText = visible ? "Close" : "Add";
+  showModalButton.focus();
   addModal.setAttribute("aria-hidden", visible ? "false" : "true");
 }
 
