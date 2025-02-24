@@ -57,7 +57,6 @@ function toggleModal(visible) {
   addModal.style.display = visible ? "flex" : "none";
   showModalButton.style.backgroundColor = visible ? "#f49cbb" : "#f4f4f4";
   showModalButton.innerText = visible ? "Close" : "Add";
-  showModalButton.focus();
   addModal.setAttribute("aria-hidden", visible ? "false" : "true");
 }
 
@@ -226,6 +225,7 @@ async function deleteRecipeFromChat(title) {
 // ONLOAD listeners and HTML
 document.addEventListener("DOMContentLoaded", async () => {
   loadRecipes();
+  showModalButton.focus();
 
   await loadAndRenderRecipes();
   await setupAI();
@@ -328,8 +328,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   // Home nav button
   homeButton.addEventListener("click", () => {
-    addModal.style.display = "none";
-    showModalButton.style.backgroundColor = "#f4f4f4";
     loadAndRenderRecipes();
     toggleModal(false);
   });
