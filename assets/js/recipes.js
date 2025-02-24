@@ -132,7 +132,8 @@ async function askChatBot(request) {
       return;
     }
 
-    const response = await model.generateContent(request);
+    const apiResponse = await model.generateContent(request);
+    const response = apiResponse.response; // Adjust for nested response structure
 
     if (!response || !response.candidates || response.candidates.length === 0) {
       appendMessage("AI Error: No response from AI.");
@@ -147,7 +148,7 @@ async function askChatBot(request) {
     }
     appendMessage(textResponse);
   } catch (error) {
-    appendMessage("AI Error: Unable to process request.");
+    appendMessage("AI Error: Unable to process request. Error:", error);
   }
 }
 
