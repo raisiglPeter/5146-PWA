@@ -251,11 +251,18 @@ function showNotification(message) {
 // ONLOAD listeners and HTML
 document.addEventListener("DOMContentLoaded", async () => {
   loadRecipes();
-  showModalButton.focus();
 
   await loadAndRenderRecipes();
   await setupAI();
 
+  // enter key sends the AI chat message
+  chatInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      sendBtn.click();
+    }
+  });
+  // send AI chat message
   sendBtn.addEventListener("click", async () => {
     let prompt = chatInput.value.trim();
 
@@ -354,6 +361,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   showModalButton.addEventListener("click", () => {
     const isModalOpen = addModal.style.display === "flex";
     toggleModal(!isModalOpen);
+    showModalButton.focus();
   });
   // Home nav button
   homeButton.addEventListener("click", () => {

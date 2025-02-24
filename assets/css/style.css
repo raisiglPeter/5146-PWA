@@ -316,9 +316,11 @@ ul.recipe-list {
   background: white;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
+  height: auto;
+  max-height: 500px;
 }
 #chat-history {
-  height: 200px;
+  max-height: 500px;
   overflow-y: auto;
   border-bottom: 1px solid #ccc;
   margin-bottom: 10px;
