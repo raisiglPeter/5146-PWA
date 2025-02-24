@@ -9,6 +9,7 @@ import { loadRecipes, addRecipe, deleteRecipe, getApiKey } from "./firebase.js";
 const addModal = document.querySelector(".add-modal");
 const homeButton = document.getElementById("home-button");
 const favouriteButton = document.getElementById("favourite-button");
+const favouriteCheckbox = document.getElementById("recipe-favourite");
 const signOutbutton = document.getElementById("signOutBttn");
 
 const showModalButton = document.getElementById("show-modal-button");
@@ -376,12 +377,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     toggleModal(false);
   });
   // Press enter to check/uncheck the favourite checkbox
-  favouriteButton.addEventListener("keydown", (event) => {
+  favouriteCheckbox.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
-      let activeElement = document.activeElement;
-      if (activeElement.type === "checkbox") {
-        activeElement.checked = !activeElement.checked;
-      }
+      event.preventDefault(); // Prevents form submission if inside a form
+      favouriteCheckbox.checked = !favouriteCheckbox.checked;
     }
   });
 

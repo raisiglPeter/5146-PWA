@@ -43,6 +43,9 @@ button:hover {
 button:focus {
   outline: 2px solid red;
 }
+input:focus {
+  outline: 2px solid red;
+}
 
 /* MISC  */
 .normal-text {
