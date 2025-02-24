@@ -122,6 +122,7 @@ function renderRecipes(recipes) {
 // AI code
 async function setupAI() {
   apiKey = await getApiKey();
+  console.log(apiKey);
   genAI = new GoogleGenerativeAI(apiKey);
   model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 }
@@ -162,7 +163,6 @@ function ruleChatBot(request) {
         "Invalid recipe format. Please provide both a title and description."
       );
     }
-
     return true;
   } else if (request.startsWith("delete recipe")) {
     let title = request.replace("delete recipe", "").trim();
@@ -174,10 +174,8 @@ function ruleChatBot(request) {
     } else {
       appendMessage("Please specify the recipe title to delete.");
     }
-
     return true;
   }
-
   return false;
 }
 // display chatbot messages
