@@ -321,7 +321,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // check input and create new recipe object
     if (title && description) {
-      const newRecipe = {
+      const recipes = await loadRecipes();
+      let existingRecipe = recipes.find((recipe) => recipe.title === title);
+
+      const updatedRecipe = {
         title,
         description,
         steps: [...stepMemory],
@@ -330,30 +333,27 @@ document.addEventListener("DOMContentLoaded", async () => {
         createdAt: new Date().toISOString(),
       };
 
-      await addRecipe(newRecipe);
+      if (existingRecipe) {
+        await deleteRecipe(existingRecipe.id);
+        await addRecipe(updatedRecipe);
+        showNotification("Updated recipe: " + title);
+      } else {
+        await addRecipe(updatedRecipe);
+        showNotification("Added recipe: " + title);
+      }
 
-      // Reset input fields after adding recipe, show success notification
+      // reset input fields after adding recipe, show success notification
       inputValidation.style.display = "none";
       titleInput.classList.remove("recipe-input-highlight");
       descInput.classList.remove("recipe-input-highlight");
       resetButton.click();
-      showNotification("Added recipe: " + newRecipe.title);
       toggleModal(false);
       loadAndRenderRecipes();
     } else {
       // input validation highlight
       inputValidation.style.display = "flex";
-      if (!title) {
-        titleInput.classList.add("recipe-input-highlight");
-      } else {
-        titleInput.classList.remove("recipe-input-highlight");
-      }
-
-      if (!description) {
-        descInput.classList.add("recipe-input-highlight");
-      } else {
-        descInput.classList.remove("recipe-input-highlight");
-      }
+      if (!title) titleInput.classList.add("recipe-input-highlight");
+      if (!description) descInput.classList.add("recipe-input-highlight");
     }
   });
 
