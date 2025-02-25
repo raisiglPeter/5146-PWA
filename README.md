@@ -34,7 +34,8 @@ git clone https://github.com/raisiglPeter/5146-PWA.git
 cd repo-folder
 ```
 - Install Firebase dependencies
-``` npm install
+```
+npm install
 ```
 
 #### Please Note: To run this project locally, you need to set up your own Firebase project and update the Firebase config in firebase.js with your project's credentials in order to use the Firestore Database. Some Firebase features may not work correctly when running the project in a local server.
