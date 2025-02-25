@@ -17,7 +17,7 @@ This is my Recipe Organizer app created for the INFO-5146 Web Trends class. Buil
 ## Demo
 
 You can see a live demo of the Recipe Organizer here:  
-[🔗 [Live Site](https://raisiglpeter.github.io/5146-PWA/)](https://raisiglpeter.github.io/5146-PWA/index.html)
+(https://raisiglpeter.github.io/5146-PWA/index.html)
 
 ## Technologies Used
 
@@ -33,8 +33,11 @@ You can see a live demo of the Recipe Organizer here:
 git clone https://github.com/raisiglPeter/5146-PWA.git
 cd repo-folder
 ```
+- Install Firebase dependencies
+``` npm install
+```
 
-### Please note, that in order to run the project locally, you would need to setup your own local server and your own Firebase Config for a Firebase Project.
+#### Please Note: To run this project locally, you need to set up your own Firebase project and update the Firebase config in firebase.js with your project's credentials in order to use the Firestore Database. Some Firebase features may not work correctly when running the project in a local server.
 
 ## Project Structure
 
