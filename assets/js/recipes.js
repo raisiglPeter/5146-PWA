@@ -330,6 +330,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         createdAt: new Date().toISOString(),
       };
 
+      if (existingRecipe) {
+        await deleteRecipe(existingRecipe.id);
+        await addRecipe(updatedRecipe);
+        showNotification("Updated recipe: " + title);
+      } else {
+        // Otherwise, add a new one
+        await addRecipe(updatedRecipe);
+        showNotification("Added recipe: " + title);
+      }
+
       await addRecipe(newRecipe);
 
       // Reset input fields after adding recipe, show success notification
@@ -343,17 +353,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
       // input validation highlight
       inputValidation.style.display = "flex";
-      if (!title) {
-        titleInput.classList.add("recipe-input-highlight");
-      } else {
-        titleInput.classList.remove("recipe-input-highlight");
-      }
-
-      if (!description) {
-        descInput.classList.add("recipe-input-highlight");
-      } else {
-        descInput.classList.remove("recipe-input-highlight");
-      }
+      if (!title) titleInput.classList.add("recipe-input-highlight");
+      if (!description) descInput.classList.add("recipe-input-highlight");
     }
   });
 
