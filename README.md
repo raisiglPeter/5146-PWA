@@ -2,6 +2,8 @@
 
 This is my Recipe Organizer app created for the INFO-5146 Web Trends class. Built using HTML, CSS, and JavaScript. Firestore database is used for real-time, persistent data storage and Firebase Authentication is used for easy email sign-in of users. Other features are listed below.
 
+#### For testing purposes, edit local storage and add key:email, value:test@testing.com after signing in which populates the recipe list with examples.
+
 ## Features
 
 - **Add recipes:** Users can add new recipes with titles, descriptions, ingredients, steps, and tags.
