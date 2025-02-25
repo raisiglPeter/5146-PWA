@@ -321,7 +321,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // check input and create new recipe object
     if (title && description) {
-      const newRecipe = {
+      const recipes = await loadRecipes();
+      let existingRecipe = recipes.find((recipe) => recipe.title === title);
+
+      const updatedRecipe = {
         title,
         description,
         steps: [...stepMemory],
@@ -335,19 +338,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         await addRecipe(updatedRecipe);
         showNotification("Updated recipe: " + title);
       } else {
-        // Otherwise, add a new one
         await addRecipe(updatedRecipe);
         showNotification("Added recipe: " + title);
       }
 
-      await addRecipe(newRecipe);
-
-      // Reset input fields after adding recipe, show success notification
+      // reset input fields after adding recipe, show success notification
       inputValidation.style.display = "none";
       titleInput.classList.remove("recipe-input-highlight");
       descInput.classList.remove("recipe-input-highlight");
       resetButton.click();
-      showNotification("Added recipe: " + newRecipe.title);
       toggleModal(false);
       loadAndRenderRecipes();
     } else {
